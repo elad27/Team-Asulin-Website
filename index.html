@@ -1173,7 +1173,7 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
     </div>
     <div class="prog-grid">
       <!-- TRACK -->
-      <div class="prog" data-reveal data-program="TRACK" data-monthly="199" data-half="169" data-yearly="149">
+      <div class="prog" data-reveal data-program="TRACK" data-link-monthly="https://mrng.to/uSc5YvWGSd" data-link-half="https://mrng.to/J4trq0xt7A" data-link-yearly="https://mrng.to/bSGwNzNfPx" data-monthly="199" data-half="169" data-yearly="149">
         <div class="prog-name">TRACK</div>
         <h3 class="prog-title">לעצמאים.</h3>
         <p class="prog-desc">לספורטאי מנוסה שיודע מה הוא עושה. רוצה את התוכנית - בלי הסחות דעת.</p>
@@ -1201,11 +1201,11 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
           <li class="dis"><svg class="no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>ללא ליווי וואטסאפ אישי</li>
           <li class="dis"><svg class="no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>ללא בדיקת סרטונים</li>
         </ul>
-        <a href="https://wa.me/972549211169?text=היי%20אלעד,%20אני%20רוצה%20להתחיל%20עם%20מסלול%20TRACK%20-%20חודש%20לחודש" target="_blank" rel="noopener" class="prog-cta">בחר ב-TRACK</a>
+        <a href="https://mrng.to/uSc5YvWGSd" target="_blank" rel="noopener" class="prog-cta">בחר ב-TRACK</a>
       </div>
 
       <!-- COACH (Featured) -->
-      <div class="prog feat" data-reveal data-program="COACH" data-monthly="270" data-half="229" data-yearly="199">
+      <div class="prog feat" data-reveal data-program="COACH" data-link-monthly="https://mrng.to/0B1chdTOgl" data-link-half="https://mrng.to/4KUJlMPkE1" data-link-yearly="https://mrng.to/lz4Z7rVxXR" data-monthly="270" data-half="229" data-yearly="199">
         <div class="prog-badge">המומלץ ביותר</div>
         <div class="prog-name">COACH</div>
         <h3 class="prog-title">המסלול המומלץ.</h3>
@@ -1234,11 +1234,11 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
           <li><svg class="yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>התאמה אישית של התוכנית</li>
           <li class="dis"><svg class="no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>ללא ליווי תזונתי</li>
         </ul>
-        <a href="https://wa.me/972549211169?text=היי%20אלעד,%20אני%20רוצה%20להתחיל%20עם%20מסלול%20COACH%20-%20חודש%20לחודש" target="_blank" rel="noopener" class="prog-cta">בחר ב-COACH</a>
+        <a href="https://mrng.to/0B1chdTOgl" target="_blank" rel="noopener" class="prog-cta">בחר ב-COACH</a>
       </div>
 
       <!-- ELITE -->
-      <div class="prog" data-reveal data-program="ELITE" data-monthly="599" data-half="509" data-yearly="449">
+      <div class="prog" data-reveal data-program="ELITE" data-link-monthly="https://mrng.to/WoiGs4UtUj" data-link-half="https://mrng.to/oStQSWBON7" data-link-yearly="https://mrng.to/AKmFJF2j9l" data-monthly="599" data-half="509" data-yearly="449">
         <div class="prog-name">ELITE</div>
         <h3 class="prog-title">VIP מלא.</h3>
         <p class="prog-desc">לרציני באמת. ליווי תזונתי, מדידות, מעקב מסת שריר, שיחות זום חודשיות - הכל.</p>
@@ -1266,7 +1266,7 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
           <li><svg class="yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>מדידות + מעקב היקפי גוף</li>
           <li><svg class="yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>מעקב צמוד על עלייה במסת שריר</li>
         </ul>
-        <a href="https://wa.me/972549211169?text=היי%20אלעד,%20אני%20רוצה%20להתחיל%20עם%20מסלול%20ELITE%20-%20חודש%20לחודש" target="_blank" rel="noopener" class="prog-cta">בחר ב-ELITE</a>
+        <a href="https://mrng.to/WoiGs4UtUj" target="_blank" rel="noopener" class="prog-cta">בחר ב-ELITE</a>
       </div>
     </div>
     <div class="prog-bottom-cta">
@@ -1992,9 +1992,8 @@ document.querySelectorAll('.prog[data-program]').forEach(card=>{
         savingsEl.classList.add('shown');
         periodEl.textContent='/חודש';
       }
-      const commitLabel=commitLabels[commit];
-      const message='היי אלעד, אני רוצה להתחיל עם מסלול '+programName+' - '+commitLabel;
-      ctaEl.href=baseWhatsApp+encodeURIComponent(message);
+      const payLinks={monthly:card.dataset.linkMonthly,half:card.dataset.linkHalf,yearly:card.dataset.linkYearly};
+      ctaEl.href=payLinks[commit]||ctaEl.href;
     });
   });
 });
