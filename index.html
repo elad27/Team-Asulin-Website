@@ -885,6 +885,13 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 .about-teaser-img .about-sig{position:absolute;bottom:30px;right:30px;width:120px;height:60px;background:#fff;border-radius:10px;padding:8px;box-shadow:0 12px 30px rgba(0,0,0,.3);z-index:2}
 .about-teaser-img .about-sig img{width:100%;height:100%;object-fit:contain}
 
+
+/* ===== LANG TOGGLE ===== */
+.lang-toggle{display:flex;align-items:center;gap:0;background:#f1f5f9;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0;margin-right:8px;flex-shrink:0}
+.lang-btn{padding:6px 12px;font-size:11px;font-weight:800;letter-spacing:.08em;border:none;background:transparent;cursor:pointer;color:#64748b;transition:all .2s;font-family:'Heebo',sans-serif}
+.lang-btn.active{background:#0f172a;color:#fff;border-radius:6px}
+.lang-btn:hover:not(.active){color:#0f172a}
+
 </style>
 </head>
 <body>
@@ -896,24 +903,25 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
     <div class="nav-logo-txt">TEAM ASULIN<small>HARD WORK WORKS</small></div>
   </a>
   <ul class="nav-links" role="menubar">
-    <li><a href="#program-map">התוכנית</a></li>
-    <li><a href="#" onclick="openAboutModal();return false;">עליי</a></li>
-    <li><a href="#programs">מסלולים</a></li>
-    <li><a href="#health">הצהרת בריאות</a></li>
-    <li><a href="#faq">שאלות</a></li>
+    <li><a href="#program-map" data-en="The Program">התוכנית</a></li>
+    <li><a href="#" onclick="openAboutModal();return false;" data-en="About">עליי</a></li>
+    <li><a href="#programs" data-en="Plans">מסלולים</a></li>
+    <li><a href="#health" data-en="Health &amp; Terms">הצהרת בריאות</a></li>
+    <li><a href="#faq" data-en="FAQ">שאלות</a></li>
   </ul>
   <div class="nav-actions">
     <a href="https://wa.me/972549211169?text=היי%20אלעד,%20אני%20רוצה%20שיחת%20אבחון%20חינם" target="_blank" rel="noopener" class="nav-cta">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
-      <span class="nav-cta-text">שיחת ייעוץ חינם</span>
+      <span class="nav-cta-text" data-en="Free Consultation">שיחת ייעוץ חינם</span>
     </a>
+    <div class="lang-toggle" role="group" aria-label="Language"><button class="lang-btn active" data-lang="he" onclick="setLang('he')">עב</button><button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button></div>
     <button class="nav-burger" id="nav-burger" aria-label="פתח תפריט" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
 <div class="mobile-menu" id="mobile-menu">
   <a href="#program-map">התוכנית</a>
   <a href="#" onclick="openAboutModal();return false;">עליי</a>
-  <a href="#how">איך זה עובד</a>
+  <a href="#how" data-en="How It Works">איך זה עובד</a>
   <a href="#programs">מסלולים</a>
   <a href="#health">הצהרת בריאות</a>
   <a href="#faq">שאלות</a>
@@ -928,23 +936,23 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
     <div>
       <div class="hero-tag"><span class="dot"></span>HARD WORK WORKS · CALISTHENICS</div>
       <h1>
-        <span class="word"><span>איתך</span></span>
-        <span class="word"><span class="accent">עד המטרה.</span></span>
+        <span class="word"><span data-en="With You.">איתך</span></span>
+        <span class="word"><span class="accent" data-en="All The Way.">עד המטרה.</span></span>
         <span class="word"><span>HARD WORK WORKS.</span></span>
       </h1>
-      <p class="hero-lede">קליסטניקס בליווי <strong>אישי <span class="ltr">1-on-1</span></strong>. מסלול אינטראקטיבי שלוקח אותך מהתרגיל הראשון - <strong>עד תרגילים שעוצרים אנשים ברחוב</strong>. בלי חדר כושר, בלי מכונות. אתה והגוף שלך - וזה מספיק.</p>
+      <p class="hero-lede" data-en="Calisthenics with <strong>personal <span class='ltr'>1-on-1</span></strong> coaching. An interactive program that takes you from your first move — <strong>to skills that stop people in the street.</strong> No gym, no machines. Just you and your body — and that's enough.">קליסטניקס בליווי <strong>אישי <span class="ltr">1-on-1</span></strong>. מסלול אינטראקטיבי שלוקח אותך מהתרגיל הראשון - <strong>עד תרגילים שעוצרים אנשים ברחוב</strong>. בלי חדר כושר, בלי מכונות. אתה והגוף שלך - וזה מספיק.</p>
       <div class="hero-actions">
         <a href="https://wa.me/972549211169?text=היי%20אלעד,%20אני%20רוצה%20שיחת%20היכרות" target="_blank" rel="noopener" class="btn btn-primary">
           <svg style="width:18px;height:18px" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
-          דבר/י איתי!
+          <span data-en="Talk to Me!">דבר/י איתי!</span>
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         </a>
-        <a href="#program-map" class="btn btn-ghost">מהי התוכנית?</a>
+        <a href="#program-map" class="btn btn-ghost" data-en="What's the Program?">מהי התוכנית?</a>
       </div>
       <div class="hero-meta">
-        <div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/></svg>ליווי אישי <span class="ltr">1-on-1</span></div>
-        <div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><polyline points="7 14 11 10 15 14 21 8"/></svg>מתקדמים שלב אחר שלב</div>
-        <div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>אני אישית עונה לכל הודעה</div>
+        <div class="hero-meta-item" data-en="Personal <span class='ltr'>1-on-1</span> Coaching"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/></svg>ליווי אישי <span class="ltr">1-on-1</span></div>
+        <div class="hero-meta-item" data-en="Progress step by step"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><polyline points="7 14 11 10 15 14 21 8"/></svg>מתקדמים שלב אחר שלב</div>
+        <div class="hero-meta-item" data-en="I personally answer every message"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>אני אישית עונה לכל הודעה</div>
       </div>
     </div>
     <div class="hero-visual">
@@ -960,11 +968,11 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
         </div>
         <div class="float-badge b1">
           <div class="ic"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
-          <div><strong>בלי חדר כושר. בלי מכונות.</strong><small>BODYWEIGHT MASTERY</small></div>
+          <div><strong data-en="No Gym. No Machines.">בלי חדר כושר. בלי מכונות.</strong><small>BODYWEIGHT MASTERY</small></div>
         </div>
         <div class="float-badge b2">
           <div class="ic"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 2L2 7v10l10 5 10-5V7l-10-5z"/><path d="M12 22V12M2 7l10 5 10-5"/></svg></div>
-          <div><strong>פלאנץ׳ · עליות כוח · פרונט-לבר</strong><small>SKILLS YOU'LL UNLOCK</small></div>
+          <div><strong data-en="Planche · Muscle-up · Front Lever">פלאנץ׳ · עליות כוח · פרונט-לבר</strong><small>SKILLS YOU'LL UNLOCK</small></div>
         </div>
       </div>
     </div>
@@ -974,10 +982,10 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 <!-- TRUST STRIP -->
 <div class="trust-strip">
   <div class="container trust-strip-inner">
-    <div class="trust-item-strip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7v10l10 5 10-5V7l-10-5z"/><path d="M12 22V12M2 7l10 5 10-5"/></svg>מאמן מוסמך · המכללה לספורט</div>
-    <div class="trust-item-strip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><circle cx="12" cy="12" r="10"/></svg>קליסטניקס · גיל 9 עד 55+</div>
-    <div class="trust-item-strip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>ליווי <span class="ltr">1-on-1</span> ישיר עם אלעד</div>
-    <div class="trust-item-strip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>ספורטאי עלית לשעבר ומאמן עם ניסיון</div>
+    <div class="trust-item-strip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7v10l10 5 10-5V7l-10-5z"/><path d="M12 22V12M2 7l10 5 10-5"/></svg data-en="Certified Trainer · College of Sport">מאמן מוסמך · המכללה לספורט</div>
+    <div class="trust-item-strip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><circle cx="12" cy="12" r="10"/></svg data-en="Calisthenics · Ages 9 to 55+">קליסטניקס · גיל 9 עד 55+</div>
+    <div class="trust-item-strip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg data-en="Direct <span class='ltr'>1-on-1</span> Coaching with Elad">ליווי <span class="ltr">1-on-1</span> ישיר עם אלעד</div>
+    <div class="trust-item-strip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg data-en="Former Elite Athlete &amp; Experienced Coach">ספורטאי עלית לשעבר ומאמן עם ניסיון</div>
   </div>
 </div>
 
@@ -985,10 +993,10 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 <section class="stats">
   <div class="container">
     <div class="stats-grid">
-      <div><div class="stat-num"><span data-counter="100">0</span><span class="suf">+</span></div><div class="stat-lab">ספורטאים בליווי</div></div>
-      <div><div class="stat-num"><span data-counter="15">0</span></div><div class="stat-lab">רמות במסלול</div></div>
-      <div><div class="stat-num"><span data-counter="30">0</span><span class="suf">+</span></div><div class="stat-lab">תרגילי קליסטניקס מתקדמים</div></div>
-      <div><div class="stat-num"><span class="ltr" dir="ltr">1-ON-1</span></div><div class="stat-lab">ליווי אישי שלי</div></div>
+      <div><div class="stat-num"><span data-counter="100">0</span><span class="suf">+</span></div><div class="stat-lab" data-en="Athletes coached">ספורטאים בליווי</div></div>
+      <div><div class="stat-num"><span data-counter="15">0</span></div><div class="stat-lab" data-en="Levels in program">רמות במסלול</div></div>
+      <div><div class="stat-num"><span data-counter="30">0</span><span class="suf">+</span></div><div class="stat-lab" data-en="Advanced calisthenics skills">תרגילי קליסטניקס מתקדמים</div></div>
+      <div><div class="stat-num"><span class="ltr" dir="ltr">1-ON-1</span></div><div class="stat-lab" data-en="My personal coaching">ליווי אישי שלי</div></div>
     </div>
   </div>
 </section>
@@ -998,8 +1006,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
   <div class="container">
     <div class="sec-head" style="text-align:right">
       <div class="pmap-tag"><span class="ic">15</span><span>THE PROGRAM · BUILT TO ELEVATE</span></div>
-      <h2 class="sec-title">מהי התוכנית?<br><em>15 שלבים. מהבסיס למאסטר.</em></h2>
-      <p class="sec-sub" style="color:#cbd5e1">לא קורס. לא סרטונים ביוטיוב. <strong style="color:#fff">מסע מדורג של 15 רמות</strong> שמתחיל מהתרגיל הפשוט ביותר - ומסתיים בתרגילים שמרשימים אנשי קליסטניקס מקצועיים. כל רמה פותחת את הבאה - רק אחרי שמשלימים אותה.</p>
+      <h2 class="sec-title" data-en="What's the Program?<br><em>15 Levels. From Basics to Master.</em>">מהי התוכנית?<br><em>15 שלבים. מהבסיס למאסטר.</em></h2>
+      <p class="sec-sub" style="color:#cbd5e1" data-en="Not a course. Not YouTube videos. <strong style='color:#fff'>A structured 15-level journey</strong> starting from the simplest move — and ending with skills that impress professional calisthenics athletes. Each level unlocks the next — only after completing it.">לא קורס. לא סרטונים ביוטיוב. <strong style="color:#fff">מסע מדורג של 15 רמות</strong> שמתחיל מהתרגיל הפשוט ביותר - ומסתיים בתרגילים שמרשימים אנשי קליסטניקס מקצועיים. כל רמה פותחת את הבאה - רק אחרי שמשלימים אותה.</p>
     </div>
 
     <div class="pmap-hero">
@@ -1128,11 +1136,11 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
       </div>
       <div class="about-teaser-content">
         <div class="sec-eyebrow">WHY ME · למה איתי</div>
-        <h2 class="sec-title" style="text-align:right">הילד הכי חלש בכיתה.<br><em>אחרי 8 שנים - בטופ 5 בעולם.</em></h2>
-        <p class="sec-sub" style="text-align:right">בלי גנטיקה מיוחדת. בלי קיצורי דרך. רק שיטה. היום אני בונה את אותה הדרך גם לאחרים - מהשכיבת סמיכה הראשונה ועד לפלאנץ' מלא.</p>
+        <h2 class="sec-title" style="text-align:right" data-en="The weakest kid in class.<br><em>8 years later — top 5 in the world.</em>">הילד הכי חלש בכיתה.<br><em>אחרי 8 שנים - בטופ 5 בעולם.</em></h2>
+        <p class="sec-sub" style="text-align:right" data-en="No special genetics. No shortcuts. Just method. Today I build that same path for others — from the first push-up to the full planche.">בלי גנטיקה מיוחדת. בלי קיצורי דרך. רק שיטה. היום אני בונה את אותה הדרך גם לאחרים - מהשכיבת סמיכה הראשונה ועד לפלאנץ' מלא.</p>
         <div style="margin-top:32px;text-align:right">
           <button onclick="openAboutModal()" class="btn btn-primary" style="font-size:16px;padding:16px 32px">
-            <span>קרא את הסיפור שלי</span>
+            <span data-en="Read My Story">קרא את הסיפור שלי</span>
             <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </button>
         </div>
@@ -1168,14 +1176,14 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
   <div class="container">
     <div class="sec-head">
       <div class="sec-eyebrow">PROGRAMS · המסלולים</div>
-      <h2 class="sec-title">בחר את הדרך שלך.<br><em>3 מסלולים. רמה אחת של רצינות.</em></h2>
-      <p class="sec-sub">המסלולים נבנו כדי לתת לך בדיוק את מה שאתה צריך - לא יותר, לא פחות. <strong>טיפ:</strong> בחר התחייבות ארוכה יותר וקבל הנחה משמעותית.</p>
+      <h2 class="sec-title" data-en="Choose Your Path.<br><em>3 Plans. One level of seriousness.</em>">בחר את הדרך שלך.<br><em>3 מסלולים. רמה אחת של רצינות.</em></h2>
+      <p class="sec-sub" data-en="The plans are built to give you exactly what you need — no more, no less. <strong>Tip:</strong> Choose a longer commitment and get a significant discount.">המסלולים נבנו כדי לתת לך בדיוק את מה שאתה צריך - לא יותר, לא פחות. <strong>טיפ:</strong> בחר התחייבות ארוכה יותר וקבל הנחה משמעותית.</p>
     </div>
     <div class="prog-grid">
       <!-- TRACK -->
       <div class="prog" data-reveal data-program="TRACK" data-link-monthly="https://mrng.to/uSc5YvWGSd" data-link-half="https://mrng.to/J4trq0xt7A" data-link-yearly="https://mrng.to/bSGwNzNfPx" data-monthly="199" data-half="169" data-yearly="149">
         <div class="prog-name">TRACK</div>
-        <h3 class="prog-title">לעצמאים.</h3>
+        <h3 class="prog-title" data-en="The Map.">לעצמאים.</h3>
         <p class="prog-desc">לספורטאי מנוסה שיודע מה הוא עושה. רוצה את התוכנית - בלי הסחות דעת.</p>
         <div class="prog-fit"><div class="fit-lab">מתאים ל:</div><div class="fit-txt">מתאמן עצמאי שמכיר תרגילי כוח, רוצה להיכנס לעולם הקליסטניקס עם דרך מובנית</div></div>
 
@@ -1201,15 +1209,15 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
           <li class="dis"><svg class="no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>ללא ליווי וואטסאפ אישי</li>
           <li class="dis"><svg class="no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>ללא בדיקת סרטונים</li>
         </ul>
-        <a href="https://mrng.to/uSc5YvWGSd" target="_blank" rel="noopener" class="prog-cta">בחר ב-TRACK</a>
+        <a href="https://mrng.to/uSc5YvWGSd" target="_blank" rel="noopener" class="prog-cta" data-en="Choose TRACK">בחר ב-TRACK</a>
       </div>
 
       <!-- COACH (Featured) -->
       <div class="prog feat" data-reveal data-program="COACH" data-link-monthly="https://mrng.to/0B1chdTOgl" data-link-half="https://mrng.to/4KUJlMPkE1" data-link-yearly="https://mrng.to/lz4Z7rVxXR" data-monthly="270" data-half="229" data-yearly="199">
-        <div class="prog-badge">המומלץ ביותר</div>
+        <div class="prog-badge" data-en="Most Recommended">המומלץ ביותר</div>
         <div class="prog-name">COACH</div>
-        <h3 class="prog-title">המסלול המומלץ.</h3>
-        <p class="prog-desc">הליבה של TEAM ASULIN. תוכנית מלאה + ליווי וואטסאפ אישי 24/7 איתי - לרוב הלקוחות.</p>
+        <h3 class="prog-title" data-en="The Recommended Plan.">המסלול המומלץ.</h3>
+        <p class="prog-desc" data-en="The core of TEAM ASULIN. Full program + personal WhatsApp coaching 24/7 with me — for most clients.">הליבה של TEAM ASULIN. תוכנית מלאה + ליווי וואטסאפ אישי 24/7 איתי - לרוב הלקוחות.</p>
         <div class="prog-fit"><div class="fit-lab">מתאים ל:</div><div class="fit-txt">מי שרוצה תוצאות אמיתיות עם מאמן שמכיר אותו ומלווה אותו עד לסיום המפה</div></div>
 
         <div class="prog-price">
@@ -1234,14 +1242,14 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
           <li><svg class="yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>התאמה אישית של התוכנית</li>
           <li class="dis"><svg class="no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>ללא ליווי תזונתי</li>
         </ul>
-        <a href="https://mrng.to/0B1chdTOgl" target="_blank" rel="noopener" class="prog-cta">בחר ב-COACH</a>
+        <a href="https://mrng.to/0B1chdTOgl" target="_blank" rel="noopener" class="prog-cta" data-en="Choose COACH">בחר ב-COACH</a>
       </div>
 
       <!-- ELITE -->
       <div class="prog" data-reveal data-program="ELITE" data-link-monthly="https://mrng.to/WoiGs4UtUj" data-link-half="https://mrng.to/oStQSWBON7" data-link-yearly="https://mrng.to/AKmFJF2j9l" data-monthly="599" data-half="509" data-yearly="449">
         <div class="prog-name">ELITE</div>
-        <h3 class="prog-title">VIP מלא.</h3>
-        <p class="prog-desc">לרציני באמת. ליווי תזונתי, מדידות, מעקב מסת שריר, שיחות זום חודשיות - הכל.</p>
+        <h3 class="prog-title" data-en="Full VIP.">VIP מלא.</h3>
+        <p class="prog-desc" data-en="For the truly serious. Nutrition coaching, measurements, muscle mass tracking, monthly Zoom calls — everything.">לרציני באמת. ליווי תזונתי, מדידות, מעקב מסת שריר, שיחות זום חודשיות - הכל.</p>
         <div class="prog-fit"><div class="fit-lab">מתאים ל:</div><div class="fit-txt">מי שמתייחס לקליסטניקס כספורט אמיתי ורוצה להגיע למקסימום בכל מימד - תזונה, שינה/התאוששות, אימונים</div></div>
 
         <div class="prog-price">
@@ -1266,17 +1274,17 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
           <li><svg class="yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>מדידות + מעקב היקפי גוף</li>
           <li><svg class="yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>מעקב צמוד על עלייה במסת שריר</li>
         </ul>
-        <a href="https://mrng.to/WoiGs4UtUj" target="_blank" rel="noopener" class="prog-cta">בחר ב-ELITE</a>
+        <a href="https://mrng.to/WoiGs4UtUj" target="_blank" rel="noopener" class="prog-cta" data-en="Choose ELITE">בחר ב-ELITE</a>
       </div>
     </div>
     <div class="prog-bottom-cta">
-      <p>לא בטוח איזה מסלול מתאים לך?</p>
+      <p data-en="Not sure which plan is right for you?">לא בטוח איזה מסלול מתאים לך?</p>
       <a href="https://wa.me/972549211169?text=היי%20אלעד,%20אני%20רוצה%20שיחת%20אבחון%20חינם" target="_blank" rel="noopener" class="btn btn-primary">
         <svg style="width:18px;height:18px" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
-        קבל שיחת אבחון חינם
+        <span data-en="Get a Free Consultation">קבל שיחת אבחון חינם</span>
         <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       </a>
-      <span class="micro">30 דקות · ללא התחייבות · בוואטסאפ או בזום</span>
+      <span class="micro" data-en="30 min · No commitment · WhatsApp or Zoom">30 דקות · ללא התחייבות · בוואטסאפ או בזום</span>
     </div>
   </div>
 </section>
@@ -1388,7 +1396,7 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
   <div class="container">
     <div class="sec-head">
       <div class="sec-eyebrow">FAQ</div>
-      <h2 class="sec-title">שאלות נפוצות.<br><em>תשובות ישירות.</em></h2>
+      <h2 class="sec-title" data-en="Common Questions.<br><em>Direct Answers.</em>">שאלות נפוצות.<br><em>תשובות ישירות.</em></h2>
     </div>
     <div class="faq-list">
       <div class="faq-item"><button type="button" class="faq-q">איך אני יודע שזה יעבוד בשבילי?<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">כל תוכנית נבנית מאפס סביב הגוף, הזמן והמטרות שלך. אנחנו מתחילים בשיחת היכרות חינמית שבה אני בוחן את הנתונים שלך, מאזין למטרות, ומציע תוכנית. אם זה לא מתאים - אני אגיד לך. בנוסף, יש אחריות החזר כספי 30 יום במסלולי PRO ו-ELITE.</div></div></div>
@@ -1408,17 +1416,17 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
   <div class="container">
     <div class="personal-tag">
       <div class="avatar-tiny"><img src="coach-elad-1.jpg" alt="אלעד" onerror="this.src='logo-black.png'" /></div>
-      <span class="pt-text">המספר האישי של <strong>אלעד</strong> · לא שירות לקוחות</span>
+      <span class="pt-text" data-en="<strong>Elad's</strong> personal number · not a call center">המספר האישי של <strong>אלעד</strong> · לא שירות לקוחות</span>
     </div>
-    <h2>בוא <em>נדבר.</em><br>ישירות. אישית.</h2>
-    <p>אני אישית עונה לכל הודעה - לא בוט, לא מזכירה, לא צ'אטבוט. בחר את הדרך הכי נוחה לך, ואני אחזור אליך בהקדם האפשרי. בלי התחייבות.</p>
+    <h2 data-en="Let's <em>Talk.</em><br>Direct. Personal.">בוא <em>נדבר.</em><br>ישירות. אישית.</h2>
+    <p data-en="I personally answer every message — no bots, no assistants, no chatbots. Choose the most convenient way for you, and I'll get back to you as soon as possible. No commitment.">אני אישית עונה לכל הודעה - לא בוט, לא מזכירה, לא צ'אטבוט. בחר את הדרך הכי נוחה לך, ואני אחזור אליך בהקדם האפשרי. בלי התחייבות.</p>
 
     <div class="contact-grid">
       <a href="tel:+972549211169" class="contact-card phone">
         <div class="cc-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
         <div class="cc-label">CALL · ישיר</div>
-        <h4>שיחת טלפון</h4>
-        <p class="cc-desc">מעדיף לדבר? תתקשר אליי ישירות. בלי בוטים, בלי מזכירה.</p>
+        <h4 data-en="Phone Call">שיחת טלפון</h4>
+        <p class="cc-desc" data-en="Prefer to talk? Call me directly. No bots, no assistant.">מעדיף לדבר? תתקשר אליי ישירות. בלי בוטים, בלי מזכירה.</p>
         <span class="cc-detail">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
           054-921-1169
@@ -1440,7 +1448,7 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
         <div class="cc-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
         <div class="cc-label">SMS · קלאסי</div>
         <h4>SMS</h4>
-        <p class="cc-desc">הודעת SMS רגילה. בלי אפליקציות, בלי בעיות. פשוט וישיר.</p>
+        <p class="cc-desc" data-en="A regular SMS message. No apps, no hassle. Simple and direct.">הודעת SMS רגילה. בלי אפליקציות, בלי בעיות. פשוט וישיר.</p>
         <span class="cc-detail">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
           054-921-1169
@@ -1450,8 +1458,8 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
       <a href="mailto:asulinelad27@gmail.com?subject=פנייה%20מהאתר%20-%20שיחת%20ייעוץ&body=היי%20אלעד%2C%0A%0Aאני%20מעוניין%20לקבוע%20שיחת%20ייעוץ.%0A%0Aשם%3A%20%0Aגיל%3A%20%0Aמטרה%3A%20%0A%0Aתודה!" class="contact-card email">
         <div class="cc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
         <div class="cc-label">FORMAL · מפורט</div>
-        <h4>אימייל</h4>
-        <p class="cc-desc">לפניות מפורטות, צירוף קבצים, או אם מעדיף את הפורמט הזה.</p>
+        <h4 data-en="Email">אימייל</h4>
+        <p class="cc-desc" data-en="For detailed inquiries, attachments, or if you prefer this format.">לפניות מפורטות, צירוף קבצים, או אם מעדיף את הפורמט הזה.</p>
         <span class="cc-detail">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           asulinelad27@gmail.com
@@ -1460,9 +1468,9 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
     </div>
 
     <div class="contact-promises">
-      <div class="cp-item"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><strong>אני</strong> עונה אישית · לא מזכירה</div>
-      <div class="cp-item"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>תגובה <strong>אישית</strong> בהקדם</div>
-      <div class="cp-item"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>ענה ב-<strong>7 ימי השבוע</strong></div>
+      <div class="cp-item" data-en="<strong>I</strong> answer personally · not an assistant"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><strong>אני</strong> עונה אישית · לא מזכירה</div>
+      <div class="cp-item" data-en="<strong>Personal</strong> response promptly"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>תגובה <strong>אישית</strong> בהקדם</div>
+      <div class="cp-item" data-en="Available <strong>7 days a week</strong>"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>ענה ב-<strong>7 ימי השבוע</strong></div>
     </div>
   </div>
 </section>
@@ -1475,7 +1483,7 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
         <img src="logo-black.png" alt="Team Asulin" />
         <h3>TEAM ASULIN</h3>
         <div class="tag">HARD WORK WORKS</div>
-        <p>מאמן כושר אישי אונליין. תוכניות מותאמות אישית, ליווי צמוד, תוצאות מוכחות.</p>
+        <p data-en="Online personal trainer. Custom programs, close coaching, proven results.">מאמן כושר אישי אונליין. תוכניות מותאמות אישית, ליווי צמוד, תוצאות מוכחות.</p>
         <div class="footer-social">
           <a href="tel:+972549211169" class="s-btn" aria-label="Phone"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></a>
           <a href="https://wa.me/972549211169" target="_blank" rel="noopener" class="s-btn" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg></a>
@@ -2295,6 +2303,30 @@ document.addEventListener('DOMContentLoaded',function(){
   });
   document.addEventListener('keydown',function(e){if(e.key==='Escape') closeAboutModal();});
 });
+
+
+/* ===== LANGUAGE TOGGLE ===== */
+(function(){
+  const originals = new Map();
+  function applyLang(lang){
+    document.querySelectorAll('[data-en]').forEach(el=>{
+      if(!originals.has(el)) originals.set(el, el.innerHTML);
+      el.innerHTML = lang==='en' ? el.dataset.en : originals.get(el);
+    });
+    // Switch dir/lang on html tag
+    document.documentElement.lang = lang==='en' ? 'en' : 'he';
+    document.documentElement.dir = lang==='en' ? 'ltr' : 'rtl';
+    // Update buttons
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
+    localStorage.setItem('site-lang', lang);
+  }
+  window.setLang = applyLang;
+  // Init on load
+  document.addEventListener('DOMContentLoaded', function(){
+    const saved = localStorage.getItem('site-lang') || 'he';
+    if(saved==='en') applyLang('en');
+  });
+})();
 
 </script>
 </body>
