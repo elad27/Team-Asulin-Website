@@ -871,6 +871,11 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 .about-modal-close-btn:hover{background:#ea6a0a}
 .about-modal-close-btn svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round}
 
+
+/* ===== ABOUT TEASER ===== */
+.about-teaser{background:var(--cream-2);padding:80px 0}
+@media(max-width:768px){.about-teaser{padding:60px 0}}
+
 </style>
 </head>
 <body>
@@ -1101,6 +1106,23 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
   </div>
 </section>
 
+<!-- ABOUT TEASER -->
+<section class="about-teaser" id="about-teaser">
+  <div class="container">
+    <div class="sec-head sec-head-left" style="text-align:right">
+      <div class="sec-eyebrow">WHY ME · למה איתי</div>
+      <h2 class="sec-title">הילד הכי חלש בכיתה.<br><em>אחרי 8 שנים - בטופ 5 בעולם.</em></h2>
+      <p class="sec-sub">בלי גנטיקה מיוחדת. בלי קיצורי דרך. רק שיטה. היום אני בונה את אותה הדרך גם לאחרים - מהשכיבת סמיכה הראשונה ועד לפלאנץ' מלא.</p>
+      <div style="margin-top:32px">
+        <button onclick="openAboutModal()" class="btn btn-primary" style="font-size:16px;padding:16px 32px">
+          <span>קרא את הסיפור שלי</span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- MARQUEE -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
@@ -1120,95 +1142,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 </div>
 
 TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
-<section class="testimonials">
-  <div class="container">
-    <div class="sec-head">
-      <div class="sec-eyebrow">★ 5.0 · CLIENT REVIEWS</div>
-      <h2 class="sec-title">הם דיברו.<br><em>אתה שופט.</em></h2>
-      <p class="sec-sub">לקוחות אמיתיים שעוברים את התוכנית עכשיו - מספרים בעצמם איך זה משנה להם את היומיום.</p>
-    </div>
-    <div class="test-grid">
-      <div class="test-card" data-reveal>
-        <div class="test-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <p class="test-text">"ניסיתי לעשות קליסטניקס לבד עם סרטונים מהיוטיוב במשך חודשים, פשוט לא התקדמתי. אצל אלעד הבנתי כמה הטכניקה שלי הייתה רחוקה ממה שצריך. בפעם הראשונה שהצלחתי לעשות מתח נקי ישר שלחתי לו את הסרטון. הוא ענה: 'עכשיו אתה מבין?'<br>כן. עכשיו אני מבין 🙏"</p>
-        <div class="test-author">
-          <div class="test-avatar">דא</div>
-          <div>
-            <h5>דניאל א.</h5>
-            <span class="test-verified"><span class="test-verified-check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span class="test-verified-text">לקוח מאומת</span></span>
-            <p>מפתח תוכנה · גיל 28 · רחובות</p>
-            <span class="test-result">מתח ראשון בחיים</span>
-          </div>
-        </div>
-        <div class="test-helpful"><svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg><span><strong>23 אנשים</strong> מצאו את זה מועיל</span></div>
-      </div>
-
-      <div class="test-card" data-reveal>
-        <div class="test-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <p class="test-text">"אבא לשלושה ילדים, מנהל עסק. הזמן הפנוי היחיד שלי הוא בערב אחרי שהקטנים נרדמו. שמעתי על אלעד מחבר שעשה שינוי מקצה לקצה. ההבדל מתוכניות אחרות הוא שאתה ממש יכול להתאים את האימון ליום שלך, למצב הרוח שלך ובלי ציוד מיוחד. הילדים שלי רואים אותי עושה תרגילים בסלון, הקטן בן 4 מנסה לחקות אותי - רק זה שווה את זה."</p>
-        <div class="test-author">
-          <div class="test-avatar">רב</div>
-          <div>
-            <h5>רון ב.</h5>
-            <span class="test-verified"><span class="test-verified-check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span class="test-verified-text">לקוח מאומת</span></span>
-            <p>בעל עסק · גיל 36 · גדרה</p>
-            <span class="test-result">המשפחה רואה את ההבדל</span>
-          </div>
-        </div>
-        <div class="test-helpful"><svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg><span><strong>41 אנשים</strong> מצאו את זה מועיל</span></div>
-      </div>
-
-      <div class="test-card" data-reveal>
-        <div class="test-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <p class="test-text">"בן 44 וחשבתי שעברתי את הגיל לדברים האלה. ראיתי אנשים עושים קליסטניקס ברילס וגיחכתי 'זה לא בשבילי'. כתבתי לאלעד הודעה רק כדי לקבל מידע, בלי כוונה אמיתית להירשם. השיחה איתו שינתה לי את התפיסה. הוא לא מכר לי חלום - הוא בדק את הפציעה הישנה שיש לי בכתף, את הזמן שיש לי, ובנה תוכנית בדיוק עבורי. החברים בעבודה שואלים אותי 'מה השתנה?'<br>ממליץ בלב שלם."</p>
-        <div class="test-author">
-          <div class="test-avatar">תכ</div>
-          <div>
-            <h5>תומר כ.</h5>
-            <span class="test-verified"><span class="test-verified-check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span class="test-verified-text">לקוח מאומת</span></span>
-            <p>עובד בבית השקעות · גיל 44 · רחובות</p>
-            <span class="test-result">חזק יותר מאי פעם</span>
-          </div>
-        </div>
-        <div class="test-helpful"><svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg><span><strong>67 אנשים</strong> מצאו את זה מועיל</span></div>
-      </div>
-    </div>
-
-    <div class="test-aggregate">
-      <div class="agg-stars">
-        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <span class="agg-num">5.0</span>
-      </div>
-      <div class="agg-divider"></div>
-      <div class="agg-info">
-        <strong>ביקורות מלקוחות</strong>
-        <small>חוויות אישיות של לקוחות התוכנית</small>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ABOUT · MY JOURNEY (Unified) -->
 
-<!-- HOW IT WORKS -->
-<section class="how" id="how">
-  <div class="container">
-    <div class="sec-head">
-      <div class="sec-eyebrow">HOW IT WORKS</div>
-      <h2 class="sec-title">4 שלבים.<br><em>אל הגוף החדש שלך.</em></h2>
-    </div>
-    <div class="steps">
-      <div class="step" data-reveal><div class="step-num">1</div><h3>שיחת היכרות</h3><p>30 דקות לבחון את המטרות, הזמן והניסיון הקודם שלך. חינם, ללא התחייבות.</p></div>
-      <div class="step" data-reveal><div class="step-num">2</div><h3>בניית תוכנית</h3><p>תוכנית אימונים ותזונה אישית שנבנית מאפס סביב הצרכים שלך.</p></div>
-      <div class="step" data-reveal><div class="step-num">3</div><h3>ליווי יומי</h3><p>צ'אט יומי, התאמות בזמן אמת, ומענה לכל שאלה - כל ימי השבוע.</p></div>
-      <div class="step" data-reveal><div class="step-num">4</div><h3>תוצאות</h3><p>מעקב, מדידות, התאמות. תוצאות מובטחות - או כסף בחזרה.</p></div>
-    </div>
-  </div>
-</section>
 
 <!-- PROGRAMS -->
 <section class="programs" id="programs">
