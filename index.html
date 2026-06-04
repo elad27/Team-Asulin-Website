@@ -1181,7 +1181,7 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
     </div>
     <div class="prog-grid">
       <!-- TRACK -->
-      <div class="prog" data-reveal data-program="TRACK" data-link-monthly="https://mrng.to/uSc5YvWGSd" data-link-half="https://mrng.to/J4trq0xt7A" data-link-yearly="https://mrng.to/bSGwNzNfPx" data-monthly="199" data-half="169" data-yearly="149">
+      <div class="prog" data-reveal data-program="TRACK" data-link-monthly="https://mrng.to/uSc5YvWGSd" data-link-half="https://mrng.to/J4trq0xt7A" data-link-yearly="https://mrng.to/bSGwNzNfPx" data-link-monthly-en="https://mrng.to/xpBu7f2Uxp" data-link-half-en="https://mrng.to/3ILjyawmJk" data-link-yearly-en="https://mrng.to/nHncZdFnB7" data-monthly="199" data-half="169" data-yearly="149">
         <div class="prog-name">TRACK</div>
         <h3 class="prog-title" data-en="The Map.">לעצמאים.</h3>
         <p class="prog-desc" data-en="For the experienced trainee who knows what he's doing. Wants the program — without distractions.">לספורטאי מנוסה שיודע מה הוא עושה. רוצה את התוכנית - בלי הסחות דעת.</p>
@@ -1213,7 +1213,7 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
       </div>
 
       <!-- COACH (Featured) -->
-      <div class="prog feat" data-reveal data-program="COACH" data-link-monthly="https://mrng.to/0B1chdTOgl" data-link-half="https://mrng.to/4KUJlMPkE1" data-link-yearly="https://mrng.to/lz4Z7rVxXR" data-monthly="270" data-half="229" data-yearly="199">
+      <div class="prog feat" data-reveal data-program="COACH" data-link-monthly="https://mrng.to/0B1chdTOgl" data-link-half="https://mrng.to/4KUJlMPkE1" data-link-yearly="https://mrng.to/lz4Z7rVxXR" data-link-monthly-en="https://mrng.to/idu0fkr6cj" data-link-half-en="https://mrng.to/RvXAQ21EhE" data-link-yearly-en="https://mrng.to/ACs5dhLDfe" data-monthly="270" data-half="229" data-yearly="199">
         <div class="prog-badge" data-en="Most Recommended">המומלץ ביותר</div>
         <div class="prog-name">COACH</div>
         <h3 class="prog-title" data-en="The Recommended Plan.">המסלול המומלץ.</h3>
@@ -1246,7 +1246,7 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
       </div>
 
       <!-- ELITE -->
-      <div class="prog" data-reveal data-program="ELITE" data-link-monthly="https://mrng.to/WoiGs4UtUj" data-link-half="https://mrng.to/oStQSWBON7" data-link-yearly="https://mrng.to/AKmFJF2j9l" data-monthly="599" data-half="509" data-yearly="449">
+      <div class="prog" data-reveal data-program="ELITE" data-link-monthly="https://mrng.to/WoiGs4UtUj" data-link-half="https://mrng.to/oStQSWBON7" data-link-yearly="https://mrng.to/AKmFJF2j9l" data-link-monthly-en="https://mrng.to/EWX3MDCWgu" data-link-half-en="https://mrng.to/QHb1a6SGtE" data-link-yearly-en="https://mrng.to/JApjFIjL7h" data-monthly="599" data-half="509" data-yearly="449">
         <div class="prog-name">ELITE</div>
         <h3 class="prog-title" data-en="Full VIP.">VIP מלא.</h3>
         <p class="prog-desc" data-en="For the truly serious. Nutrition coaching, measurements, muscle mass tracking, monthly Zoom calls — everything.">לרציני באמת. ליווי תזונתי, מדידות, מעקב מסת שריר, שיחות זום חודשיות - הכל.</p>
@@ -2000,7 +2000,10 @@ document.querySelectorAll('.prog[data-program]').forEach(card=>{
         savingsEl.classList.add('shown');
         periodEl.textContent='/חודש';
       }
-      const payLinks={monthly:card.dataset.linkMonthly,half:card.dataset.linkHalf,yearly:card.dataset.linkYearly};
+      const isEn=document.documentElement.lang==='en';
+      const payLinks=isEn
+        ?{monthly:card.dataset.linkMonthlyEn,half:card.dataset.linkHalfEn,yearly:card.dataset.linkYearlyEn}
+        :{monthly:card.dataset.linkMonthly,half:card.dataset.linkHalf,yearly:card.dataset.linkYearly};
       ctaEl.href=payLinks[commit]||ctaEl.href;
     });
   });
@@ -2321,6 +2324,22 @@ document.addEventListener('DOMContentLoaded',function(){
     localStorage.setItem('site-lang', lang);
   }
   window.setLang = applyLang;
+  // Update payment links on lang change
+  function updatePayLinks(lang){
+    document.querySelectorAll('.prog[data-program]').forEach(function(card){
+      var ctaEl=card.querySelector('.prog-cta');
+      if(!ctaEl) return;
+      var activeCommit=(card.querySelector('.commit-tab.active')||{}).dataset||{};
+      var commit=activeCommit.commit||'monthly';
+      var isEn=lang==='en';
+      var links=isEn
+        ?{monthly:card.dataset.linkMonthlyEn,half:card.dataset.linkHalfEn,yearly:card.dataset.linkYearlyEn}
+        :{monthly:card.dataset.linkMonthly,half:card.dataset.linkHalf,yearly:card.dataset.linkYearly};
+      if(links[commit]) ctaEl.href=links[commit];
+    });
+  }
+  var _orig3=applyLang;
+  applyLang=function(lang){_orig3(lang);updatePayLinks(lang);};
   // Swap program map image
   function swapMapImage(lang){
     var img = document.getElementById('program-map-img');
