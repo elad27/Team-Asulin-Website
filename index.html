@@ -2194,7 +2194,8 @@ document.getElementById('back-to-1').addEventListener('click',()=>showStep(1));
 document.getElementById('back-to-2').addEventListener('click',()=>showStep(2));
 
 /* ============== SIGNATURE PAD ============== */
-const canvas=document.getElementById('sig-canvas'),ctx=canvas.getContext('2d');
+const canvas=document.getElementById('sig-canvas'),ctx=canvas?canvas.getContext('2d'):null;
+if(canvas&&ctx){
 const sigOverlay=document.getElementById('sig-overlay'),sigWrap=document.getElementById('sig-wrap');
 let drawing=false,hasSig=false;
 
@@ -2225,6 +2226,8 @@ document.getElementById('sig-clear').addEventListener('click',()=>{
   ctx.clearRect(0,0,canvas.width,canvas.height);
   hasSig=false;sigOverlay.classList.remove('hide');sigWrap.classList.remove('has-sig');
 });
+
+} // end canvas guard
 
 /* ============== FORM SUBMIT ============== */
 document.getElementById('health-form').addEventListener('submit',e=>{
