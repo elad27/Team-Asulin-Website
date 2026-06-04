@@ -2000,7 +2000,7 @@ document.querySelectorAll('.prog[data-program]').forEach(card=>{
         savingsEl.classList.add('shown');
         periodEl.textContent='/חודש';
       }
-      const isEn=document.documentElement.lang==='en';
+      var isEn=document.documentElement.lang==='en';
       const payLinks=isEn
         ?{monthly:card.dataset.linkMonthlyEn,half:card.dataset.linkHalfEn,yearly:card.dataset.linkYearlyEn}
         :{monthly:card.dataset.linkMonthly,half:card.dataset.linkHalf,yearly:card.dataset.linkYearly};
