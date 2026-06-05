@@ -892,6 +892,14 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 .lang-btn.active{background:#0f172a;color:#fff;border-radius:6px}
 .lang-btn:hover:not(.active){color:#0f172a}
 
+
+/* ===== YES EXPLANATION FIELD ===== */
+.q-explain{display:none;margin-top:10px;width:100%}
+.q-explain textarea{width:100%;padding:10px 12px;border:1.5px solid #F97316;border-radius:8px;font-size:13px;font-family:inherit;resize:vertical;min-height:70px;background:#fffbf7;color:#0f172a;outline:none;transition:border-color .2s}
+.q-explain textarea:focus{border-color:#DC2626}
+.q-explain label{font-size:12px;font-weight:700;color:#92400e;display:block;margin-bottom:6px;letter-spacing:.03em}
+.q-item.has-yes .q-explain{display:block}
+
 </style>
 </head>
 <body>
@@ -2091,10 +2099,12 @@ const DECLARATIONS={
   he:`<p>אני, החתום מטה, מצהיר כי קראתי והבנתי את כל השאלון הרפואי ומילאתי אותו בעצמי. אני מצהיר כי מסרתי ידיעות מלאות ונכונות אודות מצבי הרפואי בעבר ובהווה לפי השאלות שנשאלתי בשאלון האמור.</p>
 <p style="margin-top:10px">ידוע לי כי לאחר שנתיים מיום חתימתי על הצהרת בריאות זו, אדרש להמציא הצהרת בריאות חדשה.</p>
 <p style="margin-top:10px"><strong>ביטול עסקה:</strong> ידוע לי כי השירות הניתן הינו שירות מותאם אישית המוכן במיוחד עבורי, לרבות תוכנית אימונים אישית, מעקב וליווי אישי. בהתאם לסעיף 14ג(ד)(2) לחוק הגנת הצרכן, תשמ"א–1981, לא חלה על שירות זה זכות הביטול בתוך 14 ימים, הואיל והשירות הוכן במיוחד עבורי ואינו ניתן להחזרה.</p>
+<p style="margin-top:10px"><strong>ויתור על אחריות רפואית:</strong> ידוע לי כי המאמן אינו רופא ואינו נושא באחריות מקצועית-רפואית לגבי מצבים בריאותיים ידועים שגיליתי בטופס זה. אני לוקח על עצמי אחריות מלאה לביצוע מעקב רפואי שוטף אצל רופא מוסמך לפני ובמהלך הפעילות הגופנית. המאמן פועל בהסתמך על המידע שמסרתי ואינו אחראי לתוצאות הנובעות ממצבים רפואיים שלא גולו או שלא טופלו כנדרש.</p>
 <p style="margin-top:10px"><strong>התחייבות תשלום:</strong> במידה ורכשתי מסלול בהתחייבות (6 חודשים או 12 חודשים), אני מאשר כי מדובר בהתחייבות מחייבת לכל תקופת המסלול שבחרתי. לא ניתן לבטל מסלול בהתחייבות לאחר תחילת השירות ו/או לאחר שהתוכנית האישית הוכנה ונמסרה לי. כל תשלומי המסלול ייגבו בהתאם לתנאי ההתחייבות שבחרתי.</p>`,
   en:`<p>I, the undersigned, declare that I have read and understood the entire medical questionnaire and have completed it personally. I declare that I have provided complete and accurate information regarding my past and present medical condition based on the questions asked.</p>
 <p style="margin-top:10px">I am aware that two years after the date of this signed health declaration, I will be required to submit a new health declaration.</p>
 <p style="margin-top:10px"><strong>Cancellation Policy:</strong> I acknowledge that the service provided is a fully customized personal training program prepared exclusively for me, including personalized workout plans, video review, and individual follow-up. Pursuant to Section 14C(d)(2) of the Israeli Consumer Protection Law (5741-1981), the statutory 14-day cancellation right does not apply, as the service has been customized specifically for me and cannot be returned.</p>
+<p style="margin-top:10px"><strong>Medical Liability Waiver:</strong> I acknowledge that the coach is not a physician and bears no professional or medical liability for any known health conditions disclosed in this form. I take full responsibility for maintaining ongoing medical supervision with a licensed physician before and during physical activity. The coach acts in reliance on the information I have provided and is not liable for any outcomes arising from undisclosed or improperly managed medical conditions.</p>
 <p style="margin-top:10px"><strong>Payment Commitment:</strong> If I have purchased a commitment plan (6-month or 12-month), I acknowledge that this constitutes a binding commitment for the full selected period. No cancellation is permitted once the service has commenced and/or once the personalized program has been prepared and delivered to me. All payments under the selected commitment plan will be charged in accordance with the agreed terms.</p>`
 };
 
@@ -2133,6 +2143,10 @@ function renderQuestions(){
       <div class="q-opts">
         <label class="q-opt no"><input type="radio" name="q${idx+1}" value="no" data-q="${idx+1}"><span class="q-opt-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>${currentLang==='he'?'לא':'No'}</span></label>
         <label class="q-opt yes"><input type="radio" name="q${idx+1}" value="yes" data-q="${idx+1}"><span class="q-opt-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>${currentLang==='he'?'כן':'Yes'}</span></label>
+      </div>
+      <div class="q-explain">
+        <label>${currentLang==='he'?'פרט/י את המצב הרפואי:':'Please describe your condition:'}</label>
+        <textarea name="explain_q${idx+1}" placeholder="${currentLang==='he'?'תאר/י בקצרה את המצב, תרופות, הגבלות וכו׳...':'Briefly describe the condition, medications, restrictions, etc...'}" rows="3"></textarea>
       </div>
     </div>`;
   }).join('');
@@ -2246,7 +2260,8 @@ document.getElementById('health-form').addEventListener('submit',e=>{
   for(let i=1;i<=list.length;i++){
     const v=document.querySelector(`input[name="q${i}"]:checked`)?.value||'';
     if(v==='yes')hasYes=true;
-    answers.push(`${i}. ${list[i-1].q}: ${v==='yes'?(currentLang==='he'?'כן ⚠️':'YES ⚠️'):(currentLang==='he'?'לא':'No')}`);
+    const explanation = v==='yes' ? (document.querySelector(`textarea[name="explain_q${i}"]`)?.value?.trim() || '') : '';
+    answers.push(`${i}. ${list[i-1].q}: ${v==='yes'?(currentLang==='he'?'כן ⚠️':'YES ⚠️'):(currentLang==='he'?'לא':'No')}${explanation?`\n   📝 ${explanation}`:''}`);
   }
 
   let msg;
