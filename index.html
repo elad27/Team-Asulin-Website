@@ -900,6 +900,25 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 .q-explain label{font-size:12px;font-weight:700;color:#92400e;display:block;margin-bottom:6px;letter-spacing:.03em}
 .q-item.has-yes .q-explain{display:block}
 
+
+/* ===== GUARDIAN MODAL ===== */
+.guardian-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
+.guardian-overlay.open{display:flex}
+.guardian-modal{background:#fff;border-radius:20px;padding:32px;max-width:480px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+.guardian-modal h3{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#0f172a;margin-bottom:8px;letter-spacing:.02em}
+.guardian-modal .gm-sub{font-size:14px;color:#64748b;margin-bottom:24px;line-height:1.6}
+.guardian-modal .field{margin-bottom:16px}
+.guardian-modal label{display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px}
+.guardian-modal input{width:100%;padding:10px 14px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
+.guardian-modal input:focus{border-color:#F97316}
+.guardian-sig-wrap{position:relative;border:2px dashed #cbd5e1;border-radius:12px;background:#fff;overflow:hidden;margin-bottom:8px}
+.guardian-sig-wrap.has-sig{border-color:#10B981;border-style:solid}
+#guardian-canvas{width:100%;height:130px;display:block;cursor:crosshair;touch-action:none}
+.guardian-modal .gm-note{font-size:12px;color:#ef4444;font-weight:600;margin-bottom:20px;padding:10px 14px;background:#fef2f2;border-radius:8px;border:1px solid #fecaca}
+.guardian-modal .gm-btns{display:flex;gap:10px}
+.guardian-modal .btn-gm-confirm{flex:1;padding:13px;background:linear-gradient(135deg,#F97316,#DC2626);color:#fff;border:none;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit}
+.guardian-modal .btn-gm-cancel{padding:13px 18px;background:#f1f5f9;color:#64748b;border:none;border-radius:12px;font-weight:600;font-size:14px;cursor:pointer;font-family:inherit}
+
 </style>
 </head>
 <body>
@@ -2208,16 +2227,17 @@ function validateStep2(){
   return true;
 }
 
-document.getElementById('to-step-2').addEventListener('click',()=>{if(validateStep1())showStep(2)});
+document.getElementById('to-step-2').addEventListener('click',()=>{if(validateStep1()){checkGuardianAge();showStep(2)}});
 document.getElementById('to-step-3').addEventListener('click',()=>{if(validateStep2())showStep(3)});
 document.getElementById('back-to-1').addEventListener('click',()=>showStep(1));
 document.getElementById('back-to-2').addEventListener('click',()=>showStep(2));
 
 /* ============== SIGNATURE PAD ============== */
+let hasSig=false; let guardianData=null;
 const canvas=document.getElementById('sig-canvas'),ctx=canvas?canvas.getContext('2d'):null;
 if(canvas&&ctx){
 const sigOverlay=document.getElementById('sig-overlay'),sigWrap=document.getElementById('sig-wrap');
-let drawing=false,hasSig=false;
+let drawing=false;
 
 function resizeCanvas(){
   const dpr=window.devicePixelRatio||1;
@@ -2266,13 +2286,13 @@ document.getElementById('health-form').addEventListener('submit',e=>{
 
   let msg;
   if(currentLang==='he'){
-    msg=`*🏋️‍♂️ הצהרת בריאות חדשה - TEAM ASULIN*\n\n` +
+    const guardianLine=guardianData?`\n*👨‍👦 הורה/אפוטרופוס:* ${guardianData.name} | ${guardianData.phone} | ${guardianData.relation}`:''; msg=`*🏋️‍♂️ הצהרת בריאות חדשה - TEAM ASULIN*\n\n` +
     `*👤 פרטים אישיים:*\n` +
     `שם: ${data.get('firstName')} ${data.get('lastName')}\n` +
     `ת.ז.: ${data.get('idNumber')}\n` +
     `גיל: ${data.get('age')}\n` +
     `טלפון: ${data.get('phone')}\n` +
-    (data.get('email')?`אימייל: ${data.get('email')}\n`:'') +
+    (data.get('email')?`אימייל: ${data.get('email')}\n`:'')+guardianLine +
     `\n*📋 שאלון רפואי:*\n${answers.join('\n')}\n\n` +
     (hasYes?`*⚠️ חשוב:* ענה "כן" על שאלה אחת או יותר - דורש אישור רפואי מרופא לפני תחילת אימונים.\n\n`:'') +
     `*✍️ חתום דיגיטלית* ${new Date().toLocaleDateString('he-IL')}\n` +
@@ -2405,6 +2425,122 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 })();
 
+
+/* ============== GUARDIAN (UNDER 18) ============== */
+(function(){
+  const overlay=document.getElementById('guardian-overlay');
+  const gCanvas=document.getElementById('guardian-canvas');
+  const gCtx=gCanvas?gCanvas.getContext('2d'):null;
+  const gWrap=document.getElementById('guardian-sig-wrap');
+  const gOverlay=document.getElementById('guardian-sig-overlay');
+  let gDrawing=false, gHasSig=false;
+
+  function resizeGCanvas(){
+    if(!gCanvas||!gCtx)return;
+    const dpr=window.devicePixelRatio||1;
+    const rect=gCanvas.getBoundingClientRect();
+    gCanvas.width=rect.width*dpr; gCanvas.height=rect.height*dpr;
+    gCtx.scale(dpr,dpr);
+    gCtx.lineCap='round';gCtx.lineJoin='round';gCtx.lineWidth=2.5;gCtx.strokeStyle='#0f172a';
+  }
+
+  function getGPos(e){
+    const rect=gCanvas.getBoundingClientRect();
+    return {x:(e.touches?e.touches[0].clientX:e.clientX)-rect.left,y:(e.touches?e.touches[0].clientY:e.clientY)-rect.top};
+  }
+  if(gCanvas&&gCtx){
+    gCanvas.addEventListener('mousedown',e=>{e.preventDefault();gDrawing=true;const p=getGPos(e);gCtx.beginPath();gCtx.moveTo(p.x,p.y)});
+    gCanvas.addEventListener('mousemove',e=>{if(!gDrawing)return;e.preventDefault();const p=getGPos(e);gCtx.lineTo(p.x,p.y);gCtx.stroke();if(!gHasSig){gHasSig=true;gOverlay.classList.add('hide');gWrap.classList.add('has-sig')}});
+    gCanvas.addEventListener('mouseup',e=>{e.preventDefault();gDrawing=false});
+    gCanvas.addEventListener('mouseout',e=>{e.preventDefault();gDrawing=false});
+    gCanvas.addEventListener('touchstart',e=>{e.preventDefault();gDrawing=true;const p=getGPos(e);gCtx.beginPath();gCtx.moveTo(p.x,p.y)});
+    gCanvas.addEventListener('touchmove',e=>{if(!gDrawing)return;e.preventDefault();const p=getGPos(e);gCtx.lineTo(p.x,p.y);gCtx.stroke();if(!gHasSig){gHasSig=true;gOverlay.classList.add('hide');gWrap.classList.add('has-sig')}});
+    gCanvas.addEventListener('touchend',e=>{e.preventDefault();gDrawing=false});
+  }
+
+  document.getElementById('guardian-sig-clear').addEventListener('click',()=>{
+    if(gCtx)gCtx.clearRect(0,0,gCanvas.width,gCanvas.height);
+    gHasSig=false;gOverlay.classList.remove('hide');gWrap.classList.remove('has-sig');
+  });
+
+  document.getElementById('gm-cancel').addEventListener('click',()=>{
+    overlay.classList.remove('open');
+  });
+
+  document.getElementById('gm-confirm').addEventListener('click',()=>{
+    const name=document.getElementById('guardian-name').value.trim();
+    const phone=document.getElementById('guardian-phone').value.trim();
+    const relation=document.getElementById('guardian-relation').value.trim();
+    const isHe=typeof currentLang!=='undefined'?currentLang==='he':true;
+    if(!name||!phone){alert(isHe?'נא למלא שם וטלפון הורה':'Please fill in guardian name and phone');return}
+    if(!gHasSig){alert(isHe?'נא לחתום בתור הורה/אפוטרופוס':'Please provide guardian signature');return}
+    guardianData={name,phone,relation};
+    overlay.classList.remove('open');
+  });
+
+  // Show guardian modal when age < 18 and user proceeds from step 1
+  window.checkGuardianAge=function(){
+    const age=parseInt(document.querySelector('input[name="age"]')?.value)||0;
+    if(age>0&&age<18){
+      const isHe=typeof currentLang!=='undefined'?currentLang==='he':true;
+      document.getElementById('gm-title').textContent=isHe?'אישור הורה / אפוטרופוס':'Parent / Guardian Approval';
+      document.getElementById('gm-sub').textContent=isHe?
+        `המתאמן בגיל ${age} — נדרשת חתימת הורה או אפוטרופוס חוקי.`:
+        `The trainee is ${age} years old — parent or legal guardian signature is required.`;
+      document.getElementById('gm-label-name').textContent=isHe?'שם הורה / אפוטרופוס':'Parent / Guardian Name';
+      document.getElementById('gm-label-phone').textContent=isHe?'טלפון':'Phone';
+      document.getElementById('gm-label-relation').textContent=isHe?'קשר למתאמן':'Relationship';
+      document.getElementById('gm-label-sig').textContent=isHe?'חתימת הורה / אפוטרופוס':'Guardian Signature';
+      document.getElementById('gm-note').textContent=isHe?
+        'אני, ההורה/האפוטרופוס החתום, מאשר/ת בזאת את תחילת הפעילות הגופנית ומקבל/ת אחריות עבור הקטין/ה.':
+        'I, the undersigned parent/guardian, hereby authorize the physical activity and accept responsibility for the minor.';
+      document.getElementById('gm-confirm').textContent=isHe?'אישור וחתימה ✓':'Confirm & Sign ✓';
+      document.getElementById('gm-cancel').textContent=isHe?'ביטול':'Cancel';
+      overlay.classList.add('open');
+      setTimeout(resizeGCanvas,100);
+      return true; // needs guardian
+    }
+    return false;
+  };
+})();
+
 </script>
+
+<!-- GUARDIAN MODAL (under 18) -->
+<div class="guardian-overlay" id="guardian-overlay">
+  <div class="guardian-modal" id="guardian-modal">
+    <h3 id="gm-title">אישור הורה / אפוטרופוס</h3>
+    <p class="gm-sub" id="gm-sub">המתאמן מתחת לגיל 18. נדרשת חתימת הורה או אפוטרופוס חוקי לצורך ביצוע הפעילות הגופנית.</p>
+    <div class="field">
+      <label id="gm-label-name">שם הורה / אפוטרופוס</label>
+      <input type="text" id="guardian-name" placeholder="שם מלא" />
+    </div>
+    <div class="field">
+      <label id="gm-label-phone">טלפון הורה / אפוטרופוס</label>
+      <input type="tel" id="guardian-phone" placeholder="מספר טלפון" />
+    </div>
+    <div class="field">
+      <label id="gm-label-relation">קשר למתאמן</label>
+      <input type="text" id="guardian-relation" placeholder="אמא / אבא / אפוטרופוס" />
+    </div>
+    <div class="field">
+      <label id="gm-label-sig">חתימת הורה / אפוטרופוס</label>
+      <div class="guardian-sig-wrap" id="guardian-sig-wrap">
+        <canvas id="guardian-canvas"></canvas>
+        <div class="sig-overlay" id="guardian-sig-overlay">חתום/י כאן</div>
+      </div>
+      <button type="button" class="sig-clear" id="guardian-sig-clear">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+        נקה
+      </button>
+    </div>
+    <p class="gm-note" id="gm-note">אני, ההורה/אפוטרופוס החתום, מאשר/ת בזאת כי קראתי את הצהרת הבריאות, מאשר/ת את תחילת הפעילות הגופנית, ומקבל/ת עליי את האחריות עבור הקטין/ה.</p>
+    <div class="gm-btns">
+      <button type="button" class="btn-gm-cancel" id="gm-cancel">ביטול</button>
+      <button type="button" class="btn-gm-confirm" id="gm-confirm">אישור וחתימה ✓</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
