@@ -740,6 +740,32 @@ section{padding:clamp(72px,10vw,140px) 0;position:relative}
 .cpb-detail{font-size:12px;color:#94a3b8;margin-top:1px}
 .cpb-price{text-align:left;white-space:nowrap}
 .cpb-price .cpb-amount{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#F97316;letter-spacing:.02em}
+/* Coupon input styles */
+.coupon-area{margin-top:20px;text-align:center}
+.coupon-toggle-btn{background:none;border:1px dashed #cbd5e1;color:#64748b;font-size:12.5px;cursor:pointer;padding:6px 14px;border-radius:20px;transition:all .2s;font-family:inherit}
+.coupon-toggle-btn:hover{border-color:#94a3b8;color:#0f172a}
+.coupon-input-row{display:flex;gap:8px;margin-top:10px;max-width:320px;margin-inline:auto}
+.coupon-input-row input{flex:1;border:1.5px solid #e5e7eb;border-radius:8px;padding:9px 12px;font-size:13px;outline:none;font-family:inherit;transition:border-color .2s;text-transform:uppercase;letter-spacing:.06em}
+.coupon-input-row input:focus{border-color:#0f172a}
+.coupon-apply-btn{background:#0f172a;color:#fff;border:none;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s;white-space:nowrap;font-family:inherit}
+.coupon-apply-btn:hover{background:#1e293b}
+.coupon-msg{margin-top:8px;font-size:12px;font-weight:600;min-height:16px}
+.coupon-msg.ok{color:#10B981}
+.coupon-msg.err{color:#DC2626}
+/* Founders plan card */
+.plan-pick-card.founders-card{border-color:#d4af37;background:linear-gradient(135deg,#fffdf5,#fefce8)}
+.plan-pick-card.founders-card.selected{border-color:#d4af37;box-shadow:0 4px 14px rgba(212,175,55,.25)}
+.plan-pick-card.founders-card .plan-pick-name{color:#92400e}
+.plan-pick-card.founders-card .plan-commit-btn.active{border-color:#d4af37;background:linear-gradient(135deg,#d4af37,#92400e);color:#fff}
+.plan-pick-badge-form.gold{background:linear-gradient(135deg,#d4af37,#92400e)}
+/* Founders banner in pricing section */
+.founders-pricing-banner{background:linear-gradient(135deg,#fffdf5,#fefce8);border:2px solid #d4af37;border-radius:20px;padding:28px 32px;margin-top:24px;text-align:center}
+.founders-pricing-eyebrow{font-size:10px;font-weight:700;letter-spacing:.12em;color:#92400e;text-transform:uppercase;margin-bottom:6px}
+.founders-pricing-name{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.05em;color:#0f172a;margin-bottom:4px}
+.founders-pricing-price{font-size:52px;font-weight:900;color:#92400e;line-height:1.1}
+.founders-pricing-price sub{font-size:16px;font-weight:400;color:#64748b;vertical-align:middle}
+.founders-pricing-note{font-size:12.5px;color:#78716c;margin-top:8px;margin-bottom:20px;line-height:1.6}
+/* end coupon/founders styles */
 .contract-scroll-box{max-height:380px;overflow-y:auto;border:1.5px solid #e5e7eb;border-radius:12px;padding:18px 20px;background:#f8fafc;font-size:12.5px;line-height:1.8;color:#1f2937;margin-bottom:16px;scroll-behavior:smooth}
 .contract-scroll-box h4{font-size:13px;font-weight:700;color:#0f172a;margin:16px 0 5px;padding-bottom:4px;border-bottom:1px solid #e5e7eb;text-align:right}
 .contract-scroll-box h4:first-child{margin-top:0}
@@ -1342,6 +1368,23 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
         <a href="https://mrng.to/WoiGs4UtUj" target="_blank" rel="noopener" class="prog-cta" data-en="Choose ELITE">בחר ב-ELITE</a>
       </div>
     </div>
+    <!-- COUPON SECTION (pricing page) -->
+    <div class="coupon-area" id="coupon-area-pricing">
+      <button class="coupon-toggle-btn" onclick="toggleCouponRow('pricing')" id="coupon-toggle-pricing">🏷️ יש לך קוד קופון?</button>
+      <div class="coupon-input-row" id="coupon-row-pricing" style="display:none">
+        <input type="text" id="coupon-input-pricing" placeholder="הזן קוד קופון" maxlength="20" />
+        <button class="coupon-apply-btn" onclick="applyCoupon('pricing')">החל</button>
+      </div>
+      <div class="coupon-msg" id="coupon-msg-pricing"></div>
+      <!-- Founders banner (revealed on valid code) -->
+      <div class="founders-pricing-banner" id="founders-banner-pricing" style="display:none">
+        <div class="founders-pricing-eyebrow">⭐ מסלול מיוחד · מייסדי טים אסולין</div>
+        <div class="founders-pricing-name">FOUNDERS PLAN</div>
+        <div class="founders-pricing-price">150₪ <sub>/חודש</sub></div>
+        <div class="founders-pricing-note">6 חודשים בלבד · מחיר מיוחד למתאמנים ותיקים<br>לאחר 6 חודשים עוברים לתוכנית לפי בחירה</div>
+        <a href="#health" class="prog-cta" style="background:linear-gradient(135deg,#d4af37,#92400e);color:#fff;border:none;display:inline-block;padding:14px 32px;border-radius:10px;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;" data-en="Join as Founder">הצטרף כמייסד</a>
+      </div>
+    </div>
     <div class="prog-bottom-cta">
       <p data-en="Not sure which plan is right for you?">לא בטוח איזה מסלול מתאים לך?</p>
       <a href="https://wa.me/972549211169?text=היי%20אלעד,%20אני%20רוצה%20שיחת%20אבחון%20חינם" target="_blank" rel="noopener" class="btn btn-primary">
@@ -1433,6 +1476,24 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
                     <button type="button" class="plan-commit-btn" data-plan="ELITE" data-commit="yearly" data-price="449" data-months="12">12 חודשים · 449₪/חודש</button>
                   </div>
                 </div>
+                <!-- FOUNDERS card — hidden, revealed by coupon code -->
+                <div class="plan-pick-card founders-card" data-plan="FOUNDERS" id="founders-plan-card" style="display:none">
+                  <div class="plan-pick-badge-form gold">⭐ מייסדים</div>
+                  <div class="plan-pick-name" style="margin-top:14px">FOUNDERS</div>
+                  <div class="plan-pick-subtitle">מתאמנים ותיקים</div>
+                  <div class="plan-pick-commits">
+                    <button type="button" class="plan-commit-btn active" data-plan="FOUNDERS" data-commit="founders" data-price="150" data-months="6">6 חודשים · 150₪/חודש ⭐</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Coupon input in form -->
+              <div class="coupon-area" style="margin-top:16px;margin-bottom:4px">
+                <button class="coupon-toggle-btn" onclick="toggleCouponRow('form')" id="coupon-toggle-form" data-he="🏷️ יש לך קוד קופון?" data-en="🏷️ Have a coupon code?">🏷️ יש לך קוד קופון?</button>
+                <div class="coupon-input-row" id="coupon-row-form" style="display:none">
+                  <input type="text" id="coupon-input-form" placeholder="הזן קוד קופון" maxlength="20" />
+                  <button class="coupon-apply-btn" onclick="applyCoupon('form')" data-he="החל" data-en="Apply">החל</button>
+                </div>
+                <div class="coupon-msg" id="coupon-msg-form"></div>
               </div>
             </div>
             <div class="health-nav"><button type="button" class="h-btn h-btn-next" id="to-step-2"><span data-he="המשך" data-en="Continue">המשך</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:16px;height:16px"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button></div>
@@ -2435,9 +2496,67 @@ function updatePlanData(btn){
   const price=parseInt(btn.dataset.price);
   const months=parseInt(btn.dataset.months);
   const isHe=currentLang==='he';
-  const label=isHe?commitLabelsHe[commit]:commitLabelsEn[commit];
   const total=price*months;
-  window.selectedPlanData={plan,commitment:commit,monthlyPrice:price,commitMonths:months,totalPrice:total,commitLabel:label};
+  // Founders plan has its own label
+  const label=plan==='FOUNDERS'
+    ?(isHe?'6 חודשים (מייסדים)':'6 Months (Founders)')
+    :(isHe?commitLabelsHe[commit]:commitLabelsEn[commit]);
+  window.selectedPlanData={
+    plan,commitment:commit,monthlyPrice:price,commitMonths:months,totalPrice:total,
+    commitLabel:label,isCoupon:plan==='FOUNDERS'
+  };
+}
+
+/* ============== COUPON LOGIC ============== */
+const VALID_COUPON='COACHELAD27';
+
+function toggleCouponRow(ctx){
+  const row=document.getElementById('coupon-row-'+ctx);
+  const isHidden=row.style.display==='none';
+  row.style.display=isHidden?'flex':'none';
+  if(isHidden) setTimeout(()=>document.getElementById('coupon-input-'+ctx).focus(),50);
+}
+
+// Allow Enter key in coupon input
+['pricing','form'].forEach(ctx=>{
+  const inp=document.getElementById('coupon-input-'+ctx);
+  if(inp) inp.addEventListener('keydown',function(e){if(e.key==='Enter') applyCoupon(ctx);});
+});
+
+function applyCoupon(ctx){
+  const inp=document.getElementById('coupon-input-'+ctx);
+  const msg=document.getElementById('coupon-msg-'+ctx);
+  const code=inp.value.trim().toUpperCase();
+
+  if(code===VALID_COUPON){
+    msg.className='coupon-msg ok';
+    msg.textContent=currentLang==='he'?'✅ קוד מייסדים הוחל! 150₪/חודש ל-6 חודשים':'✅ Founders code applied! 150₪/month for 6 months';
+    inp.disabled=true;
+    document.getElementById('coupon-row-'+ctx).style.display='none';
+    document.getElementById('coupon-toggle-'+ctx).style.display='none';
+
+    if(ctx==='pricing'){
+      const banner=document.getElementById('founders-banner-pricing');
+      banner.style.display='block';
+      banner.scrollIntoView({behavior:'smooth',block:'nearest'});
+    } else {
+      // Reveal founders card in form and auto-select
+      const foundersCard=document.getElementById('founders-plan-card');
+      foundersCard.style.display='block';
+      // Deselect all, select founders
+      document.querySelectorAll('.plan-pick-card').forEach(c=>c.classList.remove('selected'));
+      foundersCard.classList.add('selected');
+      // Update plan data
+      const btn=foundersCard.querySelector('.plan-commit-btn.active');
+      if(btn) updatePlanData(btn);
+      foundersCard.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }
+  } else {
+    msg.className='coupon-msg err';
+    msg.textContent=currentLang==='he'?'❌ קוד לא תקין':'❌ Invalid code';
+    inp.style.borderColor='#DC2626';
+    setTimeout(()=>{inp.style.borderColor='';},2000);
+  }
 }
 
 /* ============== ELAD SIGNATURE IMAGE ============== */
@@ -2475,7 +2594,8 @@ function renderContract(){
   var monthlyPrice=plan.monthlyPrice;
   var totalPrice=plan.totalPrice;
   var commitMonths=plan.commitMonths;
-  var commitDesc=commitMonths===1?'חודש לחודש':(commitMonths===6?'6 חודשים (התחייבות)':'12 חודשים (התחייבות)');
+  var isFounders=plan.plan==='FOUNDERS';
+  var commitDesc=isFounders?'6 חודשים (מסלול מייסדים)':(commitMonths===1?'חודש לחודש':(commitMonths===6?'6 חודשים (התחייבות)':'12 חודשים (התחייבות)'));
 
   // Update banner
   document.getElementById('cpb-name').textContent=plan.plan;
@@ -2488,6 +2608,7 @@ function renderContract(){
 <p><strong>הלקוח:</strong> ${firstName} ${lastName} | ת.ז.: ${idNum} | טלפון: ${phone}${email?' | דוא"ל: '+email:''}</p>
 <p><strong>תאריך:</strong> ${dayStr} ב${monthStr} ${yearStr}</p>
 <p><strong>מסלול שנבחר:</strong> ${plan.plan} · ${commitDesc} · ${monthlyPrice}₪/חודש${commitMonths>1?' (סה"כ '+totalPrice+'₪)':''}</p>
+${isFounders?`<p style="background:#fefce8;border:1.5px solid #d4af37;border-radius:8px;padding:10px 14px;color:#92400e;"><strong>⭐ מסלול מייסדים:</strong> מחיר מיוחד של 150₪/חודש ניתן באמצעות קוד קופון בלעדי למתאמנים ותיקים של טים אסולין. תוקף המסלול: 6 חודשים. לאחר תום התקופה, הלקוח יעבור לתוכנית לפי בחירתו (TRACK / COACH / ELITE) במחיר הרגיל.</p>`:''}
 
 <div class="section-title">1. הגדרות</div>
 <p><strong>1.1 "השירותים"</strong> — תוכניות אימון מותאמות אישית, סרטוני הדרכה, ייעוץ תזונתי, ליווי וקורסים דיגיטליים, על פי מסלול הליווי שנבחר.</p>
@@ -2594,6 +2715,13 @@ function renderContract(){
 <p><strong>19.1</strong> חוזה זה ממצה את כל ההתקשרויות בין הצדדים.</p>
 <p><strong>19.2</strong> אם סעיף יוגדר כבלתי חוקי — שאר הסעיפים יישארו תקפים.</p>
 <p><strong>19.3</strong> אי שימוש בזכות אינו מהווה ויתור עליה.</p>
+${isFounders?`
+<div class="section-title">20. תנאים מיוחדים — מסלול מייסדים</div>
+<p><strong>20.1</strong> חוזה זה כולל מחיר מיוחד של 150₪/חודש הניתן אך ורק למתאמנים ותיקים של טים אסולין שקיבלו קוד קופון ייעודי.</p>
+<p><strong>20.2 תוקף מסלול המייסדים:</strong> 6 חודשים מיום תחילת השירות.</p>
+<p><strong>20.3 מעבר לתוכנית רגילה:</strong> לאחר תום 6 חודשי המייסדים, הלקוח יהיה חייב לבחור אחד מהמסלולים הרגילים (TRACK / COACH / ELITE) במחיר המופיע באתר בעת המעבר. תינתן הודעה בכתב 14 ימים לפני תום התקופה.</p>
+<p><strong>20.4</strong> מחיר מסלול המייסדים אינו ניתן להעברה לאדם אחר ואינו ניתן לחידוש לאחר תום 6 החודשים.</p>
+`:''}
 `;
   document.getElementById('contract-text-box').innerHTML=html;
 }
