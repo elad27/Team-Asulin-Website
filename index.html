@@ -2239,6 +2239,7 @@ function showStep(n){
     if(i<n-1)pl.classList.add('done');else pl.classList.remove('done');
   });
   document.querySelector('.health-card').scrollIntoView({behavior:'smooth',block:'start'});
+  if(n===3) setTimeout(function(){if(typeof resizeCanvas==='function')resizeCanvas();},50);
 }
 
 function validateStep1(){
