@@ -2999,10 +2999,41 @@ document.getElementById('generate-pdf-btn').addEventListener('click',async funct
   // Show success screen
   document.querySelectorAll('.health-step').forEach(s=>s.classList.remove('active'));
   document.getElementById('success-screen').classList.add('visible');
-  // Show founders payment button if founders plan was used
-  if(window.selectedPlanData&&window.selectedPlanData.isCoupon){
-    document.getElementById('founders-payment-wrap').style.display='block';
-  }
+  // Show payment button for selected plan
+  (function showPaymentBtn(){
+    const PAYMENT_LINKS={
+      TRACK:  {monthly:'https://mrng.to/uSc5YvWGSd',half:'https://mrng.to/J4trq0xt7A',yearly:'https://mrng.to/bSGwNzNfPx'},
+      COACH:  {monthly:'https://mrng.to/0B1chdTOgl',half:'https://mrng.to/4KUJlMPkE1',yearly:'https://mrng.to/lz4Z7rVxXR'},
+      ELITE:  {monthly:'https://mrng.to/WoiGs4UtUj',half:'https://mrng.to/oStQSWBON7',yearly:'https://mrng.to/AKmFJF2j9l'},
+      FOUNDERS:{founders:'https://mrng.to/t8lxMxr2Yp'}
+    };
+    const pd=window.selectedPlanData;
+    if(!pd) return;
+    const link=(PAYMENT_LINKS[pd.plan]||{})[pd.commitment];
+    const isFounders=pd.isCoupon;
+    const wrap=document.getElementById('founders-payment-wrap');
+    if(!link){wrap.style.display='none';return;}
+    const isHe=currentLang==='he';
+    const commitHe={monthly:'חודש לחודש',half:'6 חודשים',yearly:'12 חודשים',founders:'6 חודשים'};
+    const commitEn={monthly:'Monthly',half:'6 Months',yearly:'12 Months',founders:'6 Months'};
+    const commitLabel=isHe?commitHe[pd.commitment]:commitEn[pd.commitment];
+    const eyebrow=isFounders?'⭐ מסלול מייסדים':(isHe?'💳 תשלום מסלול':'💳 Plan Payment');
+    const priceStr=pd.monthlyPrice+'₪'+(isHe?'/חודש':'/mo');
+    const note=isHe?`לאחר חתימת החוזה — עבור לתשלום`:`After signing — proceed to payment`;
+    const btnTxt=isHe?'💳 עבור לתשלום המסלול':'💳 Proceed to Payment';
+    const accentColor=isFounders?'#92400e':'#0f172a';
+    const accentGrad=isFounders?'linear-gradient(135deg,#d4af37,#92400e)':'linear-gradient(135deg,#1e293b,#0f172a)';
+    const bgGrad=isFounders?'linear-gradient(135deg,#fffdf5,#fefce8)':'linear-gradient(135deg,#f8fafc,#f1f5f9)';
+    const borderColor=isFounders?'#d4af37':'#cbd5e1';
+    wrap.innerHTML=`<div style="background:${bgGrad};border:2px solid ${borderColor};border-radius:14px;padding:16px 20px;text-align:center;margin-bottom:4px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:${accentColor};text-transform:uppercase;margin-bottom:6px;">${eyebrow}</div>
+      <div style="font-size:22px;font-weight:900;color:${accentColor};margin-bottom:2px;">${pd.plan}</div>
+      <div style="font-size:16px;font-weight:700;color:${accentColor};margin-bottom:4px;">${priceStr} · ${commitLabel}</div>
+      <div style="font-size:11.5px;color:#78716c;margin-bottom:12px;">${note}</div>
+      <a href="${link}" target="_blank" rel="noopener" style="display:block;background:${accentGrad};color:#fff;padding:13px;border-radius:10px;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;">${btnTxt}</a>
+    </div>`;
+    wrap.style.display='block';
+  })();
 });
 
 // Initialize
