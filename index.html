@@ -717,6 +717,42 @@ section{padding:clamp(72px,10vw,140px) 0;position:relative}
 [dir="ltr"] .prog-fit,[dir="ltr"] .declaration-box{text-align:left}
 [dir="ltr"] .h-btn-next,[dir="ltr"] .h-btn-submit{margin-right:0;margin-left:auto}
 
+/* ========= PLAN PICKER (FORM STEP 1) ========= */
+.plan-picker{margin-bottom:24px}
+.plan-picker>label{display:block;font-size:13px;font-weight:600;color:#0f172a;margin-bottom:12px}
+.plan-picker-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:600px){.plan-picker-cards{grid-template-columns:1fr;gap:8px}}
+.plan-pick-card{border:2px solid #e5e7eb;border-radius:12px;padding:14px 12px;cursor:pointer;transition:all .25s;position:relative;background:#fff}
+.plan-pick-card:hover{border-color:#94a3b8}
+.plan-pick-card.selected{border-color:#0f172a;background:#f8fafc;box-shadow:0 4px 14px rgba(15,23,42,.1)}
+.plan-pick-badge-form{position:absolute;top:-1px;right:10px;background:#DC2626;color:#fff;font-size:9px;font-weight:700;letter-spacing:.1em;padding:2px 8px;border-radius:0 0 6px 6px;text-transform:uppercase}
+.plan-pick-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.05em;color:#0f172a;margin-bottom:2px;margin-top:6px}
+.plan-pick-subtitle{font-size:12px;color:#64748b;margin-bottom:10px}
+.plan-pick-commits{display:flex;flex-direction:column;gap:5px}
+.plan-commit-btn{border:1.5px solid #e5e7eb;border-radius:7px;padding:7px 10px;font-size:12px;font-weight:500;color:#475569;background:#fff;cursor:pointer;transition:all .2s;text-align:right;width:100%}
+.plan-commit-btn:hover{border-color:#94a3b8}
+.plan-commit-btn.active{border-color:#0f172a;background:#0f172a;color:#fff;font-weight:700}
+.plan-pick-card.selected .plan-commit-btn.active{border-color:#DC2626;background:linear-gradient(135deg,#F97316,#DC2626);color:#fff}
+
+/* ========= CONTRACT BOX (FORM STEP 4) ========= */
+.contract-plan-banner{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#0f172a;color:#fff;border-radius:10px;margin-bottom:16px;font-size:13px;font-weight:600;gap:12px}
+.cpb-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.05em}
+.cpb-detail{font-size:12px;color:#94a3b8;margin-top:1px}
+.cpb-price{text-align:left;white-space:nowrap}
+.cpb-price .cpb-amount{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#F97316;letter-spacing:.02em}
+.contract-scroll-box{max-height:380px;overflow-y:auto;border:1.5px solid #e5e7eb;border-radius:12px;padding:18px 20px;background:#f8fafc;font-size:12.5px;line-height:1.8;color:#1f2937;margin-bottom:16px;scroll-behavior:smooth}
+.contract-scroll-box h4{font-size:13px;font-weight:700;color:#0f172a;margin:16px 0 5px;padding-bottom:4px;border-bottom:1px solid #e5e7eb;text-align:right}
+.contract-scroll-box h4:first-child{margin-top:0}
+.contract-scroll-box p{margin-bottom:7px;text-align:right}
+.contract-scroll-box table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0}
+.contract-scroll-box td,.contract-scroll-box th{border:1px solid #e5e7eb;padding:6px 10px;text-align:right}
+.contract-scroll-box th{background:#e2e8f0;font-weight:600}
+.contract-scroll-box .section-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.03em;color:#0f172a;margin:18px 0 8px;border-bottom:2px solid #0f172a;padding-bottom:4px}
+.contract-scroll-box .section-title:first-child{margin-top:0}
+.contract-confirm-wrap{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;margin-bottom:20px}
+.contract-confirm-wrap input[type="checkbox"]{width:18px;height:18px;margin-top:1px;cursor:pointer;flex-shrink:0;accent-color:#10B981}
+.contract-confirm-wrap label{font-size:13.5px;font-weight:600;color:#166534;cursor:pointer;line-height:1.5}
+
 /* ========= CONTACT CARDS ========= */
 .personal-tag{display:inline-flex;align-items:center;gap:14px;padding:8px 8px 8px 18px;background:rgba(255,255,255,.06);border:1px solid rgba(249,115,22,.3);border-radius:999px;margin-bottom:28px;backdrop-filter:blur(10px)}
 .personal-tag .avatar-tiny{width:36px;height:36px;border-radius:50%;background:#fafaf7;border:2px solid #F97316;padding:0;flex-shrink:0;overflow:hidden}
@@ -1345,6 +1381,8 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
           <div class="prog-step" data-step="2"><div class="prog-step-num">2</div><div class="prog-step-lab" data-he="רפואי" data-en="Medical">רפואי</div></div>
           <div class="prog-line"></div>
           <div class="prog-step" data-step="3"><div class="prog-step-num">3</div><div class="prog-step-lab" data-he="חתימה" data-en="Sign">חתימה</div></div>
+          <div class="prog-line"></div>
+          <div class="prog-step" data-step="4"><div class="prog-step-num">4</div><div class="prog-step-lab" data-he="חוזה" data-en="Contract">חוזה</div></div>
         </div>
         <form id="health-form" class="health-body" novalidate>
           <!-- Step 1: Personal Info -->
@@ -1362,6 +1400,40 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
             <div class="fields-row">
               <div class="field"><label data-he="טלפון" data-en="Phone">טלפון <span class="req">*</span></label><input type="tel" name="phone" required></div>
               <div class="field"><label data-he="אימייל" data-en="E-mail">אימייל</label><input type="email" name="email"></div>
+            </div>
+            <!-- Plan Picker -->
+            <div class="plan-picker">
+              <label data-he="בחר מסלול ותקופת התחייבות" data-en="Choose Your Plan & Commitment">בחר מסלול ותקופת התחייבות <span class="req">*</span></label>
+              <div class="plan-picker-cards">
+                <div class="plan-pick-card" data-plan="TRACK">
+                  <div class="plan-pick-name">TRACK</div>
+                  <div class="plan-pick-subtitle" data-he="לעצמאים" data-en="Solo">לעצמאים</div>
+                  <div class="plan-pick-commits">
+                    <button type="button" class="plan-commit-btn" data-plan="TRACK" data-commit="monthly" data-price="199" data-months="1">חודשי · 199₪</button>
+                    <button type="button" class="plan-commit-btn" data-plan="TRACK" data-commit="half" data-price="169" data-months="6">6 חודשים · 169₪/חודש</button>
+                    <button type="button" class="plan-commit-btn" data-plan="TRACK" data-commit="yearly" data-price="149" data-months="12">12 חודשים · 149₪/חודש</button>
+                  </div>
+                </div>
+                <div class="plan-pick-card selected" data-plan="COACH">
+                  <div class="plan-pick-badge-form">מומלץ</div>
+                  <div class="plan-pick-name">COACH</div>
+                  <div class="plan-pick-subtitle" data-he="ליווי מלא" data-en="Full Coaching">ליווי מלא</div>
+                  <div class="plan-pick-commits">
+                    <button type="button" class="plan-commit-btn active" data-plan="COACH" data-commit="monthly" data-price="270" data-months="1">חודשי · 270₪</button>
+                    <button type="button" class="plan-commit-btn" data-plan="COACH" data-commit="half" data-price="229" data-months="6">6 חודשים · 229₪/חודש</button>
+                    <button type="button" class="plan-commit-btn" data-plan="COACH" data-commit="yearly" data-price="199" data-months="12">12 חודשים · 199₪/חודש</button>
+                  </div>
+                </div>
+                <div class="plan-pick-card" data-plan="ELITE">
+                  <div class="plan-pick-name">ELITE</div>
+                  <div class="plan-pick-subtitle" data-he="VIP מלא" data-en="Full VIP">VIP מלא</div>
+                  <div class="plan-pick-commits">
+                    <button type="button" class="plan-commit-btn" data-plan="ELITE" data-commit="monthly" data-price="599" data-months="1">חודשי · 599₪</button>
+                    <button type="button" class="plan-commit-btn" data-plan="ELITE" data-commit="half" data-price="509" data-months="6">6 חודשים · 509₪/חודש</button>
+                    <button type="button" class="plan-commit-btn" data-plan="ELITE" data-commit="yearly" data-price="449" data-months="12">12 חודשים · 449₪/חודש</button>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="health-nav"><button type="button" class="h-btn h-btn-next" id="to-step-2"><span data-he="המשך" data-en="Continue">המשך</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:16px;height:16px"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button></div>
           </div>
@@ -1401,12 +1473,39 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
             <div class="field"><label data-he="תאריך" data-en="Date">תאריך</label><input type="text" name="signDate" id="sign-date" readonly style="background:#f9fafb"></div>
             <div class="health-nav">
               <button type="button" class="h-btn h-btn-back" id="back-to-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:16px;height:16px;transform:scaleX(-1)"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span data-he="חזור" data-en="Back">חזור</span></button>
-              <button type="submit" class="h-btn h-btn-submit" id="submit-form">
-                <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
-                <span data-he="שלח לאלעד בוואטסאפ" data-en="Send to Coach Elad via WhatsApp">שלח לאלעד בוואטסאפ</span>
+              <button type="button" class="h-btn h-btn-next" id="to-step-4">
+                <span data-he="המשך לחוזה" data-en="Continue to Contract">המשך לחוזה</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:16px;height:16px"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
               </button>
             </div>
           </div>
+          <!-- Step 4: Contract -->
+          <div class="health-step" data-step="4">
+            <h3 data-he="חוזה שירות" data-en="Service Contract">חוזה שירות</h3>
+            <p class="step-intro" data-he="קרא את החוזה עד הסוף ואשר את הסכמתך לפני ייצור הקובץ." data-en="Read the full contract and confirm your agreement before generating the file.">קרא את החוזה עד הסוף ואשר את הסכמתך לפני ייצור הקובץ.</p>
+            <!-- Plan banner (filled by JS) -->
+            <div id="contract-plan-banner" class="contract-plan-banner">
+              <div><div class="cpb-name" id="cpb-name">COACH</div><div class="cpb-detail" id="cpb-detail">חודשי</div></div>
+              <div class="cpb-price"><div class="cpb-amount" id="cpb-amount">270₪</div><div style="font-size:11px;color:#64748b">/חודש</div></div>
+            </div>
+            <!-- Scrollable contract -->
+            <div class="contract-scroll-box" id="contract-text-box">
+              <!-- filled by renderContract() -->
+            </div>
+            <!-- Confirmation checkbox -->
+            <div class="contract-confirm-wrap">
+              <input type="checkbox" id="contract-agree" />
+              <label for="contract-agree" data-he="קראתי את כל סעיפי החוזה, הבנתי אותם, ואני מסכים/ה לכל התנאים המפורטים בו." data-en="I have read and understood all contract sections and agree to all stated terms.">קראתי את כל סעיפי החוזה, הבנתי אותם, ואני מסכים/ה לכל התנאים המפורטים בו.</label>
+            </div>
+            <div class="health-nav">
+              <button type="button" class="h-btn h-btn-back" id="back-to-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:16px;height:16px;transform:scaleX(-1)"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span data-he="חזור" data-en="Back">חזור</span></button>
+              <button type="button" class="h-btn h-btn-submit" id="generate-pdf-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span data-he="הורד PDF (הצהרה + חוזה)" data-en="Download PDF (Declaration + Contract)">הורד PDF (הצהרה + חוזה)</span>
+              </button>
+            </div>
+          </div>
+
           <!-- Success -->
           <div class="health-success" id="success-screen">
             <div class="health-success-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
@@ -2139,14 +2238,21 @@ vgItems.forEach(item=>{
 
 /* ============== HEALTH FORM ============== */
 const QUESTIONS_HE=[
-  {q:'האם הרופא שלך אמר לך שאתה סובל ממחלת לב?',sub:''},
-  {q:'האם אתה חש כאבים בחזה?',sub:'בזמן מנוחה / בפעילות יום-יום / בזמן פעילות גופנית'},
-  {q:'האם במהלך השנה החולפת איבדת שיווי משקל או איבדת את הכרתך?',sub:''},
-  {q:'האם רופא אבחן שאתה סובל ממחלת אסטמה ובשלושת החודשים האחרונים נזקקת לטיפול תרופתי או סבלת מקוצר נשימה?',sub:''},
-  {q:'האם אחד מבני משפחתך מדרגת קרבה ראשונה נפטר ממחלת לב או ממוות פתאומי בגיל מוקדם (לפני 55 בגבר, לפני 65 באישה)?',sub:''},
-  {q:'האם הרופא אמר לך ב-5 השנים האחרונות לבצע פעילות גופנית תחת השגחה רפואית?',sub:''},
-  {q:'האם הינך סובל ממחלה קבועה (כרונית) שאינה נזכרת בשאלות לעיל ועשויה למנוע או להגביל אותך בביצוע פעילות גופנית?',sub:''},
-  {q:'לנשים בהריון: האם ההריון הזה או כל הריון קודם הוגדר הריון בסיכון?',sub:'ענה "לא" אם לא רלוונטי'}
+  {q:'האם אתה/ת אלרגי/ת לתרופות, מזון, או חומר כלשהו?',sub:'אם כן, פרט/י'},
+  {q:'האם אתה/ת סובל/ת מסוכרת או בעיות במערכת הנשימה?',sub:'אם כן, פרט/י'},
+  {q:'האם אתה/ת נוטל/ת תרופות כלשהן (כולל תוספים)?',sub:'אם כן, ציין/י שמות'},
+  {q:'האם אתה/ת סובל/ת מלחץ דם גבוה?',sub:''},
+  {q:'האם אתה/ת חש/ה סחרחורות, התעלפויות, או שחרחורת?',sub:''},
+  {q:'האם אתה/ת חש/ה לחץ או כאב בחזה בזמן מאמץ פיזי?',sub:''},
+  {q:'האם יש לך בעיה אורתופדית, פציעה, או כאב כרוני בגוף?',sub:'אם כן, פרט/י היכן'},
+  {q:'האם אושפזת בבית חולים במהלך 5 השנים האחרונות?',sub:''},
+  {q:'האם עברת ניתוחים כלשהם?',sub:'אם כן, פרט/י'},
+  {q:'האם אתה/ת סובל/ת מבעיות לב, דופק לא סדיר, או מחלת לב?',sub:''},
+  {q:'האם אתה/ת סובל/ת מבעיות נוירולוגיות או עצביות?',sub:''},
+  {q:'האם אובחנת במחלה כרונית (סוכרת, סרטן, בעיות כליה, וכו\')?',sub:'אם כן, פרט/י'},
+  {q:'האם אובחנת בעבר בהפרעה נפשית או קושי נפשי?',sub:'ענה/י "לא" אם לא רלוונטי'},
+  {q:'האם אתה/ת בהריון או מניקה?',sub:'ענה/י "לא" אם לא רלוונטי'},
+  {q:'האם יש מצב בריאותי אחר שעלול להשפיע על יכולתך להתאמן?',sub:'אם כן, פרט/י'}
 ];
 const QUESTIONS_EN=[
   {q:'Has a physician ever diagnosed you with a heart condition and indicated you should restrict your physical activity?',sub:''},
@@ -2280,6 +2386,218 @@ document.getElementById('to-step-3').addEventListener('click',()=>{if(validateSt
 document.getElementById('back-to-1').addEventListener('click',()=>showStep(1));
 document.getElementById('back-to-2').addEventListener('click',()=>showStep(2));
 
+function validateStep3(){
+  if(!hasSig){alert(currentLang==='he'?'נא לחתום לפני המשך':'Please sign before continuing');return false;}
+  return true;
+}
+document.getElementById('to-step-4').addEventListener('click',()=>{if(validateStep3()){renderContract();showStep(4);}});
+document.getElementById('back-to-3').addEventListener('click',()=>showStep(3));
+
+/* ============== PLAN PICKER LOGIC ============== */
+window.selectedPlanData={plan:'COACH',commitment:'monthly',monthlyPrice:270,commitMonths:1,totalPrice:270,commitLabel:'חודש לחודש'};
+const commitLabelsHe={monthly:'חודש לחודש',half:'6 חודשים',yearly:'12 חודשים'};
+const commitLabelsEn={monthly:'Monthly',half:'6 Months',yearly:'12 Months'};
+
+document.querySelectorAll('.plan-pick-card').forEach(card=>{
+  card.addEventListener('click',function(e){
+    // Only select card, not buttons (buttons handle themselves)
+    if(e.target.classList.contains('plan-commit-btn'))return;
+    document.querySelectorAll('.plan-pick-card').forEach(c=>c.classList.remove('selected'));
+    card.classList.add('selected');
+    // Activate the first button if none active
+    const activeBtn=card.querySelector('.plan-commit-btn.active');
+    if(!activeBtn){
+      const firstBtn=card.querySelector('.plan-commit-btn');
+      if(firstBtn){firstBtn.classList.add('active');updatePlanData(firstBtn);}
+    } else {
+      updatePlanData(activeBtn);
+    }
+  });
+});
+
+document.querySelectorAll('.plan-commit-btn').forEach(btn=>{
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    // Select this card
+    const card=btn.closest('.plan-pick-card');
+    document.querySelectorAll('.plan-pick-card').forEach(c=>c.classList.remove('selected'));
+    card.classList.add('selected');
+    // Deactivate all buttons in all cards, activate this one
+    document.querySelectorAll('.plan-commit-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    updatePlanData(btn);
+  });
+});
+
+function updatePlanData(btn){
+  const plan=btn.dataset.plan;
+  const commit=btn.dataset.commit;
+  const price=parseInt(btn.dataset.price);
+  const months=parseInt(btn.dataset.months);
+  const isHe=currentLang==='he';
+  const label=isHe?commitLabelsHe[commit]:commitLabelsEn[commit];
+  const total=price*months;
+  window.selectedPlanData={plan,commitment:commit,monthlyPrice:price,commitMonths:months,totalPrice:total,commitLabel:label};
+}
+
+/* ============== ELAD SIGNATURE IMAGE ============== */
+var ELAD_SIG_URL='';
+(function(){
+  var img=new Image();
+  img.crossOrigin='anonymous';
+  img.onload=function(){
+    try{
+      var c=document.createElement('canvas');
+      var maxH=70;var ratio=maxH/img.naturalHeight;
+      c.width=Math.round(img.naturalWidth*ratio);c.height=maxH;
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      ELAD_SIG_URL=c.toDataURL('image/png');
+    }catch(e){ELAD_SIG_URL=img.src;}
+  };
+  img.src='חתימה.png'; // חתימה.png
+})();
+
+/* ============== RENDER CONTRACT (STEP 4) ============== */
+function renderContract(){
+  var data=new FormData(document.getElementById('health-form'));
+  var firstName=data.get('firstName')||'';
+  var lastName=data.get('lastName')||'';
+  var idNum=data.get('idNumber')||'';
+  var phone=data.get('phone')||'';
+  var email=data.get('email')||'';
+  var today=new Date().toLocaleDateString('he-IL');
+  var d=new Date();
+  var dayStr=d.getDate();
+  var monthStr=d.toLocaleString('he-IL',{month:'long'});
+  var yearStr=d.getFullYear();
+  var plan=window.selectedPlanData;
+  var commitLabel=plan.commitLabel;
+  var monthlyPrice=plan.monthlyPrice;
+  var totalPrice=plan.totalPrice;
+  var commitMonths=plan.commitMonths;
+  var commitDesc=commitMonths===1?'חודש לחודש':(commitMonths===6?'6 חודשים (התחייבות)':'12 חודשים (התחייבות)');
+
+  // Update banner
+  document.getElementById('cpb-name').textContent=plan.plan;
+  document.getElementById('cpb-detail').textContent=commitDesc;
+  document.getElementById('cpb-amount').textContent=monthlyPrice+'₪';
+
+  var html=`
+<div class="section-title">פרטי הצדדים</div>
+<p><strong>המתאמן:</strong> אלעד אסולין | ת.ז.: [פרטים אישיים] | טלפון: 054-921-1169 | דוא"ל: asulinelad27@gmail.com</p>
+<p><strong>הלקוח:</strong> ${firstName} ${lastName} | ת.ז.: ${idNum} | טלפון: ${phone}${email?' | דוא"ל: '+email:''}</p>
+<p><strong>תאריך:</strong> ${dayStr} ב${monthStr} ${yearStr}</p>
+<p><strong>מסלול שנבחר:</strong> ${plan.plan} · ${commitDesc} · ${monthlyPrice}₪/חודש${commitMonths>1?' (סה"כ '+totalPrice+'₪)':''}</p>
+
+<div class="section-title">1. הגדרות</div>
+<p><strong>1.1 "השירותים"</strong> — תוכניות אימון מותאמות אישית, סרטוני הדרכה, ייעוץ תזונתי, ליווי וקורסים דיגיטליים, על פי מסלול הליווי שנבחר.</p>
+<p><strong>1.2 "מסלול הליווי"</strong> — מסלול ${plan.plan} (${commitDesc}) כמפורט לעיל.</p>
+<p><strong>1.3 "תקופת ההתחייבות"</strong> — ${commitMonths===1?'חודש לחודש (ללא התחייבות קבועה)':commitMonths+' חודשים'}.</p>
+<p><strong>1.4 "תוכנית מותאמת אישית"</strong> — תוכנית אימון או תפריט תזונה שיוצרו במיוחד לצרכי הלקוח.</p>
+
+<div class="section-title">2. הצהרת בריאות וזכאות</div>
+<p><strong>2.1</strong> הלקוח מצהיר כי קרא והבין את שאלות הצהרת הבריאות שצורפו להסכם זה; כל תשובותיו אמיתיות ומדויקות; ואם הוא קטין (מתחת לגיל 18) — הורה/אפוטרופוס אישר את השתתפותו.</p>
+<p><strong>2.2</strong> אם תשובה לאחת מהשאלות חיובית, הלקוח מחויב להמציא תעודה רפואית מרופא מוסמך המאשרת שאין סיכון בביצוע אימונים.</p>
+<p><strong>2.3</strong> הלקוח מצהיר שהוא במצב בריאותי תקין ומסוגל לעסוק בפעילות גופנית.</p>
+<p><strong>2.4</strong> הלקוח מובן שהמתאמן אינו רופא וכי השירותים אינם מהווים טיפול רפואי. בכל ספק — להיוועץ ברופא.</p>
+
+<div class="section-title">3. התמורה והתשלום</div>
+<p><strong>3.1</strong> בתמורה לשירותים, ישלם הלקוח ${monthlyPrice}₪ לחודש, עבור תקופה של ${commitDesc}.</p>
+<p><strong>3.2</strong> פרטי המסלול:</p>
+<table><tr><th>מסלול</th><th>משך התחייבות</th><th>מחיר חודשי</th><th>מחיר כולל</th></tr>
+<tr><td>${plan.plan}</td><td>${commitDesc}</td><td>₪${monthlyPrice}</td><td>₪${totalPrice}</td></tr></table>
+<p><strong>3.3</strong> התשלום חייב להתבצע תוך 24 שעות מהזמנה, לצורך הפעלה מיידית של השירותים.</p>
+<p><strong>3.4</strong> תחילת השירות מותנית בקבלת תשלום מלא.</p>
+<p><strong>3.5</strong> ${commitMonths>1?'הלקוח בחר בתקופת התחייבות של '+commitMonths+' חודשים ויקבל הנחה על המחיר החודשי כמפורט לעיל.':'הלקוח בחר במסלול חודשי ללא התחייבות.'}</p>
+
+<div class="section-title">4. אופי השירותים</div>
+<p><strong>4.1 תוכניות אימון מותאמות אישית:</strong> תוך 7 ימים ישלח שאלון מפורט. בהתבסס על התשובות, תיבנה תוכנית אישית על ידי מאמן מוסמך.</p>
+<p><strong>4.2 סרטוני הדרכה:</strong> תוך 14 ימים יישלחו קישורים לסרטוני הדרכה. הסרטונים הם קניין רוחני של המתאמן.</p>
+<p><strong>4.3 ייעוץ תזונתי:</strong> הייעוץ אינו מתבצע על ידי תזונאי/ת מוסמך/ת ברישום משרד הבריאות. הלקוח אחראי לתזונתו ולבריאותו.</p>
+<p><strong>4.4 ליווי:</strong> זמינות: ימים א'–ז' בין 10:00–22:00. ערוץ: WhatsApp / דוא"ל / טלפון. זמן תגובה סביר בהתאם לעומס.</p>
+<p><strong>4.5 ביטול שירותים:</strong> לאחר תום ההתחייבות רשאי המתאמן למחוק תוכניות אימון, תפריטי תזונה, וכל חומר הקשור ללקוח.</p>
+
+<div class="section-title">5. קניין רוחני</div>
+<p><strong>5.1</strong> כל החומרים (סרטונים, תוכניות, תפריטים, קורסים) הם קניינו הרוחני של המתאמן.</p>
+<p><strong>5.2</strong> הלקוח מקבל רישיון מוגבל לשימוש אישי בלבד, במהלך תקופת ההתחייבות. אסור להעתיק, להפיץ, לפרסם, או למכור לצד שלישי.</p>
+<p><strong>5.3</strong> הפרת סעיף זה תוביל לביטול מיידי של השירותים וגביית פיצוי בסך ₪1,500 לכל הפרה.</p>
+
+<div class="section-title">6. שימוש בתמונות ווידאו</div>
+<p><strong>6.1</strong> כל תמונה/וידאו שהלקוח ישלח למתאמן יהיו בבעלות המתאמן לצורכי שיווק וקידום עסק.</p>
+<p><strong>6.2</strong> הלקוח מאשר שימוש בתמונותיו ברשתות חברתיות (פייסבוק, אינסטגרם, טיקטוק וכו').</p>
+<p><strong>6.3</strong> אם הלקוח אינו מסכים לפרסום פומבי, עליו להודיע בכתב תוך 24 שעות.</p>
+
+<div class="section-title">7. ביטול, החזרים וסעיפים משפטיים</div>
+<p><strong>7.1 זכות ביטול:</strong> על פי חוק הגנת הצרכן תשמ"א–1981, הלקוח זכאי לבטל עסקה תוך 14 ימים, בתנאים המפורטים בסעיפים הבאים.</p>
+<p><strong>7.2 תוכניות מותאמות אישית:</strong> בהתאם לסעיף 14(ד)(4) וסעיף 14(ד)(5) לחוק הגנת הצרכן, <strong>לא חלה זכות ביטול</strong> על תוכנית שיוצרה במיוחד עבור הלקוח לפי נתוניו האישיים.</p>
+<p><strong>7.3 ביטול לפני קבלת השירות:</strong> אם בוטל תוך 24 שעות מהרכישה ולפני שנבנתה תוכנית — יינתן החזר מלא.</p>
+<p><strong>7.4 ביטול בתקופת התחייבות:</strong> ${commitMonths>1?'הלקוח אינו יכול לבטל באמצע תקופת ההתחייבות ולקבל החזר. דמי ביטול: 100% מהתשלומים שנותרו עד סוף התקופה.':'מסלול חודשי — ניתן לבטל בכל עת, ההחיוב יעצור בסוף החודש הנוכחי.'}</p>
+<p><strong>7.5</strong> הודעת ביטול חייבת להיות בכתב עם: שם מלא, מספר ת.ז., תאריך, וסיבת הביטול — לדוא"ל: asulinelad27@gmail.com או בוואטסאפ: 054-921-1169.</p>
+<p><strong>7.6</strong> החזר כספי (אם מגיע) יועבר תוך 14 ימים לאמצעי התשלום המקורי.</p>
+
+<div class="section-title">8. ויתור על אחריות והסכמה לסיכון</div>
+<p><strong>8.1</strong> הלקוח משחרר את המתאמן מכל אחריות לנזק גופני, נפשי, רכושי, או כלכלי כתוצאה מ: ביצוע אימונים, בעיות בריאות, תופעות לוואי, שגיאות טכניקה, אי-ציות להוראות, או שימוש בציוד.</p>
+<p><strong>8.2</strong> הלקוח מבין שהמתאמן <strong>אינו מלווה אותו פיזית</strong> בזמן האימונים, ולכן לא יכול לתקן טעויות בזמן אמת.</p>
+<p><strong>8.3</strong> הייעוץ התזונתי אינו מחליף ייעוץ תזונאי מוסמך. הלקוח אחראי לתזונתו.</p>
+<p><strong>8.4</strong> הלקוח מצהיר שהוא <strong>מבין ומקבל</strong> את הסיכונים הטבעיים של פעילות גופנית, כולל: פציעות שריר/עצם/מפרק, בעיות בריאות חדשות, דימום, וכאבי שרירים.</p>
+
+<div class="section-title">9. הקפאות ודחיות</div>
+<p><strong>9.1</strong> ניתן לבקש הקפאת מנוי עד 6 חודשים בנסיבות מיוחדות.</p>
+<p><strong>9.2</strong> במהלך הקפאה, ההחיוב אינו מופסק. הלקוח יחזור לתשלומים עם סיום ההקפאה.</p>
+<p><strong>9.3</strong> בקשת הקפאה חייבת להיות בכתב ותיכנס לתוקף תוך 24 שעות.</p>
+<p><strong>9.4</strong> במקרה של מחלה/פציעה/ניתוח — ניתן להקפיא ללא הגבלת זמן עם אישור רפואי.</p>
+
+<div class="section-title">10. שינויים בתקנון</div>
+<p><strong>10.1</strong> המתאמן שומר לעצמו הזכות לשנות מחירים, ערוצי תקשורת, הרכב שירותים, או צוות עובדים.</p>
+<p><strong>10.2</strong> שינוי בתקנון ייעשה בכתב, ויכנס לתוקף כעבור 30 ימים מהודעה בדוא"ל.</p>
+<p><strong>10.3</strong> אם הלקוח אינו מסכים לשינוי — רשאי לבטל תוך 30 ימים ללא קנסות.</p>
+
+<div class="section-title">11. הרחקה מהשירותים וביטוח</div>
+<p><strong>11.1</strong> המתאמן רשאי להרחיק לקוח בגין: הפרת חוזה, יחס מזלזל/מעליב/אגרסיבי, שימוש בלתי חוקי בחומרים, או אי-תשלום.</p>
+<p><strong>11.2</strong> בעת הרחקה, לא יינתן החזר כספי עבור תקופת הלא-שימוש.</p>
+<p><strong>11.3</strong> המתאמן מכוסה בביטוח רשלנות מקצועית בגין נזקים שנגרמו כתוצאה מטעויות מקצועיות. הביטוח אינו מכסה: אי-ציות הלקוח להוראות, פציעות מטעות ביצוע, שגיאות תזונתיות, בעיות שלא גולו בהצהרת הבריאות, או שימוש בציוד לא מומלץ.</p>
+
+<div class="section-title">12. הגנת נתונים ופרטיות</div>
+<p><strong>12.1</strong> המתאמן שומר את נתוני הלקוח (שם, טלפון, דוא"ל, מידע בריאותי, תמונות) בשירותי cloud מוצפנים עם גיבוי קבוע.</p>
+<p><strong>12.2</strong> המתאמן לא ישתף נתוני הלקוח עם חברות שיווק, מוקדים, מכוני מחקר, או ספקים — למעט: צוות רפואי (בבקשת הלקוח), משרד המס (אם נדרש בחוק), בתי משפט (בצו).</p>
+<p><strong>12.3</strong> לאחר סיום המנוי — נתוני הלקוח יימחקו תוך 30 ימים. תמונות שפורסמו ישארו (אלא אם ביקש הסרה).</p>
+<p><strong>12.4</strong> הלקוח רשאי: לבקש עותק נתוניו, לבקש תיקון, לבקש מחיקה, או לפנות לרשות הגנת הנתונים.</p>
+
+<div class="section-title">13. בעיות טכניות</div>
+<p><strong>13.1</strong> אם לא התקבל שירות או הייתה בעיה טכנית — יש להודיע תוך 48 שעות עם צילום מסך אם אפשר.</p>
+<p><strong>13.2</strong> המתאמן יתקן/ישלח מחדש תוך 24 שעות לבעיות דחופות, ותוך 72 שעות לבעיות מורכבות.</p>
+<p><strong>13.3</strong> אם אותה בעיה קרתה 3 פעמים — הלקוח זכאי להחזר חלקי של 10% מהחודש, או חודש נוסף חינמי.</p>
+
+<div class="section-title">14. תשלומים חוזרים</div>
+<p><strong>14.1</strong> אם הלקוח בחר בהוראת קבע: במקרה של כשל — יתבצע ניסיון חוזר כעבור 3 ימי עסקים. לאחר 3 כשלונות — השירות יופסק.</p>
+<p><strong>14.2</strong> הלקוח חייב לבטל הוראת קבע בעצמו בבנק. ביטול המנוי אינו מבטל אוטומטית את הוראת הקבע.</p>
+
+<div class="section-title">15. טיפול בתלונות</div>
+<p><strong>15.1</strong> תלונות יש להגיש תוך 30 ימים בדוא"ל/וואטסאפ עם ציון "תלונה".</p>
+<p><strong>15.2</strong> תהליך טיפול: אישור תוך 24 שעות → חקירה → החלטה תוך 14 ימי עסקים בכתב.</p>
+<p><strong>15.3</strong> אם הלקוח לא מסכים להחלטה — רשאי לפנות לרשות הגנת הצרכן או להגיש תביעה בבית משפט.</p>
+
+<div class="section-title">16. תקשורת שיווקית ועדכוני מחירים</div>
+<p><strong>16.1</strong> המתאמן רשאי לשלוח עדכונים, הצעות, וסקרים. ניתן לבטל בכל עת עם הודעה "בלי שיווק".</p>
+<p><strong>16.2</strong> ${commitMonths===1?'במנוי חודשי — המתאמן רשאי להעלות מחיר בהודעה של 30 ימים. עלייה מעל 20% מחייבת הסכמה בכתב.':'במסלול התחייבות — המחיר לא יעלה עד סוף התקופה.'}</p>
+
+<div class="section-title">17. גיל מינימום וקטינים</div>
+<p><strong>17.1</strong> קטינים מתחת לגיל 13: לא מתקבלים. גילאי 13–17: מתקבלים רק עם חתימת הורה/אפוטרופוס.</p>
+<p><strong>17.2</strong> ההורה/האפוטרופוס מצהיר שהקטין בריא וכשיר לאימונים, ופיקוחו הבטיחותי הוא אחריות ההורה בלבד.</p>
+
+<div class="section-title">18. דיני ישראל וסמכות שיפוט</div>
+<p><strong>18.1</strong> חוזה זה ינוהל ויפורש לפי דיני מדינת ישראל.</p>
+<p><strong>18.2</strong> כל סכסוך ידון בבתי המשפט המוסמכים בישראל.</p>
+<p><strong>18.3</strong> הודעות ישלחו בכתב: דוא"ל מאומת, WhatsApp, דואר רשום, או מסירה אישית.</p>
+
+<div class="section-title">19. כללים כלליים</div>
+<p><strong>19.1</strong> חוזה זה ממצה את כל ההתקשרויות בין הצדדים.</p>
+<p><strong>19.2</strong> אם סעיף יוגדר כבלתי חוקי — שאר הסעיפים יישארו תקפים.</p>
+<p><strong>19.3</strong> אי שימוש בזכות אינו מהווה ויתור עליה.</p>
+`;
+  document.getElementById('contract-text-box').innerHTML=html;
+}
+
 /* ============== SIGNATURE PAD ============== */
 let hasSig=false; let guardianData=null;
 const canvas=document.getElementById('sig-canvas'),ctx=canvas?canvas.getContext('2d'):null;
@@ -2317,17 +2635,19 @@ document.getElementById('sig-clear').addEventListener('click',()=>{
 
 } // end canvas guard
 
-/* ============== FORM SUBMIT — PDF GENERATION ============== */
-document.getElementById('health-form').addEventListener('submit',async function(e){
-  e.preventDefault();
-  if(!hasSig){alert(currentLang==='he'?'נא לחתום לפני שליחת הטופס':'Please sign before submitting');return}
+/* ============== PDF GENERATION (GENERATE-PDF-BTN) ============== */
+document.getElementById('generate-pdf-btn').addEventListener('click',async function(){
+  if(!document.getElementById('contract-agree').checked){
+    alert(currentLang==='he'?'יש לקרוא ולאשר את החוזה לפני הורדת ה-PDF':'Please read and confirm the contract before downloading the PDF');
+    return;
+  }
 
-  const submitBtn=document.getElementById('submit-form');
-  const origText=submitBtn.innerHTML;
-  submitBtn.disabled=true;
-  submitBtn.innerHTML='<span>'+(currentLang==='he'?'מייצר PDF...':'Generating PDF...')+'</span>';
+  const generateBtn=document.getElementById('generate-pdf-btn');
+  const origText=generateBtn.innerHTML;
+  generateBtn.disabled=true;
+  generateBtn.innerHTML='<span>'+(currentLang==='he'?'מייצר PDF...':'Generating PDF...')+'</span>';
 
-  const data=new FormData(e.target);
+  const data=new FormData(document.getElementById('health-form'));
   const isHe=currentLang==='he';
   const list=isHe?QUESTIONS_HE:QUESTIONS_EN;
   const firstName=data.get('firstName')||'';
@@ -2435,14 +2755,77 @@ document.getElementById('health-form').addEventListener('submit',async function(
       pdf.addImage(sliceCanvas.toDataURL('image/jpeg',0.93),'JPEG',0,0,pageW,sliceH*ratio);
       yOffset+=sliceH; page++;
     }
-    const pdfFilename=`health-declaration-${firstName}-${lastName}.pdf`;
+    // ===== PART 2: CONTRACT =====
+    const plan=window.selectedPlanData;
+    const commitDesc=plan.commitMonths===1?'חודש לחודש':(plan.commitMonths===6?'6 חודשים (התחייבות)':'12 חודשים (התחייבות)');
+    const contractInnerHTML=document.getElementById('contract-text-box').innerHTML;
+
+    const contractHtml=`<div style="font-family:'Heebo',Arial,sans-serif;direction:rtl;text-align:right;color:#0f172a;padding:36px 40px;width:794px;background:#fff;box-sizing:border-box;">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:3px solid #0f172a;margin-bottom:22px;">
+        <div><div style="font-size:26px;font-weight:900;letter-spacing:2px;">TEAM ASULIN</div><div style="font-size:10.5px;color:#64748b;letter-spacing:1px;margin-top:2px;">חוזה שירות</div></div>
+        <div style="font-size:11.5px;color:#64748b;text-align:left;">${isHe?'תאריך:':'Date:'} ${dateStr}</div>
+      </div>
+      <div style="padding:12px 16px;background:#0f172a;color:#fff;border-radius:10px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-size:22px;font-weight:900;letter-spacing:.05em;">${plan.plan}</div><div style="font-size:12px;color:#94a3b8;margin-top:2px;">${commitDesc}</div></div>
+        <div style="font-size:24px;font-weight:900;color:#F97316;">${plan.monthlyPrice}₪<span style="font-size:12px;color:#64748b">/חודש</span></div>
+      </div>
+      <style>
+        .section-title{font-size:13px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:.8px;margin:18px 0 8px;padding-bottom:5px;border-bottom:1.5px solid #e2e8f0;}
+        p{font-size:12.5px;line-height:1.8;color:#374151;margin:4px 0;}
+        table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px;}
+        th{background:#0f172a;color:#fff;padding:8px 10px;text-align:right;}
+        td{padding:7px 10px;border:1px solid #e5e7eb;}
+        strong{color:#0f172a;}
+      </style>
+      <div>${contractInnerHTML}</div>
+      <div style="margin-top:30px;padding-top:20px;border-top:2px solid #0f172a;display:flex;justify-content:space-between;gap:40px;">
+        <div style="flex:1;">
+          <div style="font-size:11.5px;color:#64748b;margin-bottom:6px;">חתימת הלקוח — ${firstName} ${lastName}</div>
+          <img src="${sigDataUrl}" style="height:70px;border:2px solid #10B981;border-radius:8px;padding:5px;background:#fff;" />
+          <div style="font-size:11px;color:#64748b;margin-top:5px;">תאריך: ${dateStr}</div>
+        </div>
+        ${ELAD_SIG_URL?`<div style="flex:1;">
+          <div style="font-size:11.5px;color:#64748b;margin-bottom:6px;">חתימת המאמן — אלעד אסולין</div>
+          <img src="${ELAD_SIG_URL}" style="height:70px;border:2px solid #3b82f6;border-radius:8px;padding:5px;background:#fff;" />
+          <div style="font-size:11px;color:#64748b;margin-top:5px;">054-921-1169</div>
+        </div>`:''}
+      </div>
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid #e2e8f0;font-size:10.5px;color:#94a3b8;display:flex;justify-content:space-between;">
+        <span>TEAM ASULIN | אלעד אסולין</span><span>054-921-1169 | asulinelad27@gmail.com</span>
+      </div>
+    </div>`;
+
+    const contractDiv=document.createElement('div');
+    contractDiv.style.cssText='position:absolute;top:-9999px;left:-9999px;';
+    contractDiv.innerHTML=contractHtml;
+    document.body.appendChild(contractDiv);
+
+    try{
+      const contractEl=contractDiv.firstElementChild;
+      const contractRendered=await html2canvas(contractEl,{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',width:794,logging:false});
+      const cImgW=contractRendered.width, cImgH=contractRendered.height;
+      const cRatio=pageW/cImgW;
+      let cYOffset=0;
+      while(cYOffset<cImgH){
+        pdf.addPage();
+        const cSliceH=Math.min(pageH/cRatio, cImgH-cYOffset);
+        const cSlice=document.createElement('canvas');
+        cSlice.width=cImgW; cSlice.height=cSliceH;
+        cSlice.getContext('2d').drawImage(contractRendered,0,cYOffset,cImgW,cSliceH,0,0,cImgW,cSliceH);
+        pdf.addImage(cSlice.toDataURL('image/jpeg',0.92),'JPEG',0,0,pageW,cSliceH*cRatio);
+        cYOffset+=cSliceH;
+      }
+    }finally{
+      document.body.removeChild(contractDiv);
+    }
+    // ===== SAVE =====
+    const pdfFilename=`team-asulin-${firstName}-${lastName}.pdf`;
     pdf.save(pdfFilename);
-    // Store for re-download
     window.redownloadPDF=function(){pdf.save(pdfFilename);};
   }catch(err){
     console.error('PDF error:',err);
     alert(isHe?'שגיאה ביצירת ה-PDF. נסה שוב.':'Error generating PDF. Please try again.');
-    submitBtn.disabled=false; submitBtn.innerHTML=origText;
+    generateBtn.disabled=false; generateBtn.innerHTML=origText;
     document.body.removeChild(tempDiv);
     return;
   }
