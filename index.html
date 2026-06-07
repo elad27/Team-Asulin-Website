@@ -983,6 +983,211 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 .guardian-modal .btn-gm-confirm{flex:1;padding:13px;background:linear-gradient(135deg,#F97316,#DC2626);color:#fff;border:none;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit}
 .guardian-modal .btn-gm-cancel{padding:13px 18px;background:#f1f5f9;color:#64748b;border:none;border-radius:12px;font-weight:600;font-size:14px;cursor:pointer;font-family:inherit}
 
+
+/* ============================================================
+   MOBILE OPTIMIZATION — max-width: 768px / 480px / 380px
+   ============================================================ */
+
+/* --- Container padding on small screens --- */
+@media (max-width:768px){
+  .container{padding:0 18px}
+  section{padding:60px 0}
+  .stats{padding:56px 0}
+  .final-cta{padding:72px 0}
+  .about-teaser{padding:56px 0}
+  .marquee{padding:32px 0}
+  .trust-strip{padding:28px 0}
+  footer{padding:56px 0 24px}
+}
+
+/* --- NAV --- */
+@media (max-width:768px){
+  .nav{padding:0 18px;height:62px}
+  .nav-logo-txt{font-size:14px}
+  .nav-cta-text{display:none}
+  .nav-cta{padding:10px 12px}
+}
+
+/* --- HERO --- */
+@media (max-width:768px){
+  .hero{padding:90px 0 60px;min-height:auto}
+  .hero h1{font-size:clamp(42px,12vw,72px)}
+  .hero-lede{font-size:15px;margin-bottom:28px}
+  .hero-actions{gap:10px}
+  .hero-actions .btn{padding:14px 20px;font-size:13px}
+  .hero-meta{gap:16px;margin-top:24px;padding-top:20px}
+  .hero-meta-item{font-size:12px}
+  .hero-visual{height:320px;margin-top:24px}
+  .coach-wrap{width:min(300px,85%)}
+  .float-badge{display:none}
+}
+@media (max-width:480px){
+  .hero{padding:80px 0 48px}
+  .hero h1{font-size:clamp(38px,14vw,64px)}
+  .hero-lede{font-size:14px}
+  .hero-tag{font-size:11px;padding:6px 12px}
+  .hero-visual{height:260px}
+  .coach-wrap{width:min(240px,78%)}
+}
+
+/* --- SECTION TITLES --- */
+@media (max-width:480px){
+  .sec-title{font-size:clamp(32px,9vw,52px)}
+  .sec-head{margin-bottom:36px}
+  .sec-sub{font-size:15px}
+}
+
+/* --- STATS --- */
+@media (max-width:480px){
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:24px}
+  .stat-num{font-size:clamp(38px,10vw,60px)}
+  .stat-lab{font-size:11px;letter-spacing:.18em}
+}
+
+/* --- PROGRAM MAP --- */
+@media (max-width:768px){
+  .pmap-hero{grid-template-columns:1fr;gap:28px;margin-bottom:40px}
+  .pmap .sec-title,.pmap-content h2{font-size:clamp(30px,8vw,48px)}
+}
+
+/* --- PROGRAMS / PLANS --- */
+@media (max-width:1024px){
+  .prog-grid{grid-template-columns:1fr;gap:16px}
+  .prog.feat{transform:scale(1);margin-bottom:4px}
+}
+@media (max-width:768px){
+  .prog{padding:28px 22px}
+  .prog-name{font-size:clamp(30px,8vw,40px)}
+  .prog-bottom-cta{padding:28px 20px;margin-top:32px}
+}
+
+/* --- BEFORE / AFTER --- */
+@media (max-width:768px){
+  .ba-grid{grid-template-columns:1fr;gap:16px}
+}
+
+/* --- TESTIMONIALS --- */
+@media (max-width:768px){
+  .test-grid{grid-template-columns:1fr;gap:16px}
+}
+
+/* --- JOURNEY / TIMELINE --- */
+@media (max-width:480px){
+  .journey-milestones{grid-template-columns:1fr;gap:12px}
+}
+
+/* --- FAQ --- */
+@media (max-width:768px){
+  .faq-q{padding:18px 16px;font-size:15px}
+  .faq-a-inner{font-size:14px;padding:0 0 18px}
+}
+
+/* --- CONTACT --- */
+@media (max-width:768px){
+  .contact-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .contact-card{padding:18px 14px}
+}
+@media (max-width:480px){
+  .contact-grid{grid-template-columns:1fr;gap:10px}
+}
+
+/* --- FOOTER --- */
+@media (max-width:480px){
+  .footer-grid{grid-template-columns:1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center;gap:10px}
+}
+
+/* ============================================================
+   HEALTH FORM — mobile
+   ============================================================ */
+@media (max-width:768px){
+  .health-wrap{border-radius:0}
+  .health-card{border-radius:20px}
+  .health-header{padding:24px 20px}
+  .health-body{padding:24px 18px}
+  .health-progress{padding:16px 18px 0;gap:6px}
+  .prog-step-num{width:28px;height:28px;font-size:12px}
+  .prog-step-lab{font-size:10px;letter-spacing:.03em}
+  .prog-line{flex:.3}
+  .contract-scroll-box{max-height:55vh;font-size:12px}
+  .contract-plan-banner{flex-direction:column;align-items:flex-start;gap:6px;padding:10px 14px}
+  .cpb-price{text-align:right}
+  .cpb-price .cpb-amount{font-size:18px}
+  .health-nav{gap:10px;padding-top:16px}
+  .h-btn{padding:11px 16px;font-size:12px}
+  .h-btn-submit{padding:13px 22px;font-size:13px}
+  #sig-canvas{height:140px}
+  .health-success{padding:40px 20px}
+  .health-success h3{font-size:26px}
+}
+@media (max-width:480px){
+  .health-header{padding:20px 16px}
+  .health-body{padding:18px 14px}
+  .health-progress{padding:12px 14px 0;gap:4px}
+  .prog-step-num{width:24px;height:24px;font-size:10px}
+  .prog-step-lab{font-size:9px;letter-spacing:0}
+  .prog-line{flex:.2}
+  .q-item{padding:12px}
+  .q-text{font-size:13px}
+  .q-opt-label{padding:8px;font-size:12px}
+  .fields-row{grid-template-columns:1fr}
+  .field input,.field select{font-size:16px}/* 16px prevents iOS zoom */
+  .h-btn{padding:10px 14px;font-size:11px;gap:5px}
+  .plan-picker-cards{grid-template-columns:1fr;gap:8px}
+  .plan-pick-card{padding:12px 10px}
+  .coupon-input-row{flex-direction:column;max-width:100%}
+  .coupon-apply-btn{width:100%;text-align:center}
+  .contract-scroll-box{max-height:50vh;padding:14px}
+}
+
+/* --- Guardian modal on mobile --- */
+@media (max-width:480px){
+  .guardian-overlay{padding:12px}
+  .guardian-modal{padding:22px 18px;border-radius:16px}
+  .guardian-modal h3{font-size:22px}
+  .guardian-modal .gm-btns{flex-direction:column}
+  #guardian-canvas{height:110px}
+}
+
+/* --- About modal on mobile --- */
+@media (max-width:480px){
+  .about-modal-bar{padding:12px 16px}
+  .about-modal-title{font-size:17px}
+  .about-modal-close-btn{padding:8px 14px;font-size:12px}
+}
+
+/* --- Trust strip --- */
+@media (max-width:480px){
+  .trust-strip-inner{gap:16px 28px;justify-content:center}
+  .trust-item-strip{font-size:12px}
+}
+
+/* --- FAB cluster: ensure it doesn't overlap sticky CTA --- */
+@media (max-width:480px){
+  .fab-cluster{right:14px;bottom:84px}
+  .fab-main{width:50px;height:50px}
+}
+
+/* --- Fix iOS bounce overscroll on form card --- */
+@media (max-width:768px){
+  .health-card{-webkit-overflow-scrolling:touch}
+  .contract-scroll-box{-webkit-overflow-scrolling:touch}
+}
+
+/* --- Prevent long words from breaking layout on mobile --- */
+@media (max-width:768px){
+  .contract-scroll-box,.declaration-box,.warning-box,.q-text-sub{overflow-wrap:break-word;word-break:break-word}
+}
+
+/* --- Touch target minimum size for all interactive elements --- */
+@media (max-width:768px){
+  .plan-commit-btn{min-height:44px;padding:10px 12px}
+  .q-opt-label{min-height:44px}
+  .h-btn,.coupon-apply-btn,.coupon-toggle-btn{min-height:44px}
+  .lang-btn{min-height:36px;padding:8px 14px}
+  .m-cta-btn{min-height:52px}
+}
+
 </style>
 </head>
 <body>
