@@ -1382,7 +1382,7 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
         <div class="founders-pricing-name">FOUNDERS PLAN</div>
         <div class="founders-pricing-price">150₪ <sub>/חודש</sub></div>
         <div class="founders-pricing-note">6 חודשים בלבד · מחיר מיוחד למתאמנים ותיקים<br>לאחר 6 חודשים עוברים לתוכנית לפי בחירה</div>
-        <a href="#health" class="prog-cta" style="background:linear-gradient(135deg,#d4af37,#92400e);color:#fff;border:none;display:inline-block;padding:14px 32px;border-radius:10px;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;" data-en="Join as Founder">הצטרף כמייסד</a>
+        <a href="https://mrng.to/t8lxMxr2Yp" target="_blank" rel="noopener" class="prog-cta" style="background:linear-gradient(135deg,#d4af37,#92400e);color:#fff;border:none;display:inline-block;padding:14px 32px;border-radius:10px;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;" data-en="Join as Founder">הצטרף כמייסד — תשלום</a>
       </div>
     </div>
     <div class="prog-bottom-cta">
@@ -1572,6 +1572,17 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
             <div class="health-success-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
             <h3 data-he="הקובץ הורד בהצלחה!" data-en="File Downloaded!">הקובץ הורד בהצלחה!</h3>
             <p data-he="כדי להשלים את הרישום — שלח את קובץ ה-PDF שהורד לאלעד בוואטסאפ." data-en="To complete your registration — send the downloaded PDF file to Coach Elad on WhatsApp.">כדי להשלים את הרישום — שלח את קובץ ה-PDF שהורד לאלעד בוואטסאפ.</p>
+            <!-- Founders payment button (only visible when founders plan selected) -->
+            <div id="founders-payment-wrap" style="display:none;margin-bottom:4px;width:100%;max-width:340px;margin-inline:auto;">
+              <div style="background:linear-gradient(135deg,#fffdf5,#fefce8);border:2px solid #d4af37;border-radius:14px;padding:16px 20px;text-align:center;margin-bottom:4px;">
+                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:#92400e;text-transform:uppercase;margin-bottom:6px;">⭐ מסלול מייסדים</div>
+                <div style="font-size:22px;font-weight:900;color:#92400e;margin-bottom:4px;">150₪<span style="font-size:13px;font-weight:400;color:#78716c">/חודש · 6 חודשים</span></div>
+                <div style="font-size:11.5px;color:#78716c;margin-bottom:12px;">לאחר חתימת החוזה — עבור לתשלום</div>
+                <a href="https://mrng.to/t8lxMxr2Yp" target="_blank" rel="noopener" style="display:block;background:linear-gradient(135deg,#d4af37,#92400e);color:#fff;padding:13px;border-radius:10px;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;">
+                  💳 עבור לתשלום המסלול
+                </a>
+              </div>
+            </div>
             <div style="display:flex;flex-direction:column;gap:12px;align-items:center;margin-top:4px;">
               <button type="button" onclick="window.redownloadPDF&&window.redownloadPDF()" class="btn btn-primary" style="background:#1e293b;gap:8px;">
                 <svg style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -2988,6 +2999,10 @@ document.getElementById('generate-pdf-btn').addEventListener('click',async funct
   // Show success screen
   document.querySelectorAll('.health-step').forEach(s=>s.classList.remove('active'));
   document.getElementById('success-screen').classList.add('visible');
+  // Show founders payment button if founders plan was used
+  if(window.selectedPlanData&&window.selectedPlanData.isCoupon){
+    document.getElementById('founders-payment-wrap').style.display='block';
+  }
 });
 
 // Initialize
