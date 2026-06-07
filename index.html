@@ -2755,12 +2755,16 @@ document.getElementById('generate-pdf-btn').addEventListener('click',async funct
       pdf.addImage(sliceCanvas.toDataURL('image/jpeg',0.93),'JPEG',0,0,pageW,sliceH*ratio);
       yOffset+=sliceH; page++;
     }
-    // ===== PART 2: CONTRACT =====
+    // ===== PART 2: CONTRACT (two-pass rendering to avoid signature cut) =====
     const plan=window.selectedPlanData;
     const commitDesc=plan.commitMonths===1?'חודש לחודש':(plan.commitMonths===6?'6 חודשים (התחייבות)':'12 חודשים (התחייבות)');
     const contractInnerHTML=document.getElementById('contract-text-box').innerHTML;
 
-    const contractHtml=`<div style="font-family:'Heebo',Arial,sans-serif;direction:rtl;text-align:right;color:#0f172a;padding:36px 40px;width:794px;background:#fff;box-sizing:border-box;">
+    const sharedStyles=`font-family:'Heebo',Arial,sans-serif;direction:rtl;text-align:right;color:#0f172a;background:#fff;box-sizing:border-box;width:794px;`;
+    const sectionCSS=`<style>.section-title{font-size:13px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:.8px;margin:18px 0 8px;padding-bottom:5px;border-bottom:1.5px solid #e2e8f0;} p{font-size:12.5px;line-height:1.8;color:#374151;margin:4px 0;} table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px;} th{background:#0f172a;color:#fff;padding:8px 10px;text-align:right;} td{padding:7px 10px;border:1px solid #e5e7eb;} strong{color:#0f172a;}</style>`;
+
+    // PASS 1: Contract body (header + plan banner + all sections, NO signature)
+    const contractBodyHtml=`<div style="${sharedStyles}padding:36px 40px 24px;">
       <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:3px solid #0f172a;margin-bottom:22px;">
         <div><div style="font-size:26px;font-weight:900;letter-spacing:2px;">TEAM ASULIN</div><div style="font-size:10.5px;color:#64748b;letter-spacing:1px;margin-top:2px;">חוזה שירות</div></div>
         <div style="font-size:11.5px;color:#64748b;text-align:left;">${isHe?'תאריך:':'Date:'} ${dateStr}</div>
@@ -2769,16 +2773,13 @@ document.getElementById('generate-pdf-btn').addEventListener('click',async funct
         <div><div style="font-size:22px;font-weight:900;letter-spacing:.05em;">${plan.plan}</div><div style="font-size:12px;color:#94a3b8;margin-top:2px;">${commitDesc}</div></div>
         <div style="font-size:24px;font-weight:900;color:#F97316;">${plan.monthlyPrice}₪<span style="font-size:12px;color:#64748b">/חודש</span></div>
       </div>
-      <style>
-        .section-title{font-size:13px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:.8px;margin:18px 0 8px;padding-bottom:5px;border-bottom:1.5px solid #e2e8f0;}
-        p{font-size:12.5px;line-height:1.8;color:#374151;margin:4px 0;}
-        table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px;}
-        th{background:#0f172a;color:#fff;padding:8px 10px;text-align:right;}
-        td{padding:7px 10px;border:1px solid #e5e7eb;}
-        strong{color:#0f172a;}
-      </style>
+      ${sectionCSS}
       <div>${contractInnerHTML}</div>
-      <div style="margin-top:30px;padding-top:20px;border-top:2px solid #0f172a;display:flex;justify-content:space-between;gap:40px;">
+    </div>`;
+
+    // PASS 2: Signature block only (rendered separately, placed smart)
+    const contractSigHtml=`<div style="${sharedStyles}padding:20px 40px 24px;">
+      <div style="padding-top:20px;border-top:2px solid #0f172a;display:flex;justify-content:space-between;gap:40px;margin-bottom:16px;">
         <div style="flex:1;">
           <div style="font-size:11.5px;color:#64748b;margin-bottom:6px;">חתימת הלקוח — ${firstName} ${lastName}</div>
           <img src="${sigDataUrl}" style="height:70px;border:2px solid #10B981;border-radius:8px;padding:5px;background:#fff;" />
@@ -2790,33 +2791,58 @@ document.getElementById('generate-pdf-btn').addEventListener('click',async funct
           <div style="font-size:11px;color:#64748b;margin-top:5px;">054-921-1169</div>
         </div>`:''}
       </div>
-      <div style="margin-top:16px;padding-top:12px;border-top:1px solid #e2e8f0;font-size:10.5px;color:#94a3b8;display:flex;justify-content:space-between;">
+      <div style="padding-top:12px;border-top:1px solid #e2e8f0;font-size:10.5px;color:#94a3b8;display:flex;justify-content:space-between;">
         <span>TEAM ASULIN | אלעד אסולין</span><span>054-921-1169 | asulinelad27@gmail.com</span>
       </div>
     </div>`;
 
-    const contractDiv=document.createElement('div');
-    contractDiv.style.cssText='position:absolute;top:-9999px;left:-9999px;';
-    contractDiv.innerHTML=contractHtml;
-    document.body.appendChild(contractDiv);
+    // Render body
+    const contractBodyDiv=document.createElement('div');
+    contractBodyDiv.style.cssText='position:absolute;top:-9999px;left:-9999px;';
+    contractBodyDiv.innerHTML=contractBodyHtml;
+    document.body.appendChild(contractBodyDiv);
 
+    let bodyRendered, sigRendered;
     try{
-      const contractEl=contractDiv.firstElementChild;
-      const contractRendered=await html2canvas(contractEl,{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',width:794,logging:false});
-      const cImgW=contractRendered.width, cImgH=contractRendered.height;
-      const cRatio=pageW/cImgW;
-      let cYOffset=0;
-      while(cYOffset<cImgH){
-        pdf.addPage();
-        const cSliceH=Math.min(pageH/cRatio, cImgH-cYOffset);
-        const cSlice=document.createElement('canvas');
-        cSlice.width=cImgW; cSlice.height=cSliceH;
-        cSlice.getContext('2d').drawImage(contractRendered,0,cYOffset,cImgW,cSliceH,0,0,cImgW,cSliceH);
-        pdf.addImage(cSlice.toDataURL('image/jpeg',0.92),'JPEG',0,0,pageW,cSliceH*cRatio);
-        cYOffset+=cSliceH;
-      }
-    }finally{
-      document.body.removeChild(contractDiv);
+      bodyRendered=await html2canvas(contractBodyDiv.firstElementChild,{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',width:794,logging:false});
+    }finally{ document.body.removeChild(contractBodyDiv); }
+
+    // Render signature block
+    const contractSigDiv=document.createElement('div');
+    contractSigDiv.style.cssText='position:absolute;top:-9999px;left:-9999px;';
+    contractSigDiv.innerHTML=contractSigHtml;
+    document.body.appendChild(contractSigDiv);
+    try{
+      sigRendered=await html2canvas(contractSigDiv.firstElementChild,{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',width:794,logging:false});
+    }finally{ document.body.removeChild(contractSigDiv); }
+
+    // Slice body into pages, track how much the last page is used
+    const bImgW=bodyRendered.width, bImgH=bodyRendered.height;
+    const bRatio=pageW/bImgW;
+    const pageSliceH=pageH/bRatio; // canvas px per full page
+    let bYOffset=0; let lastSliceH=0;
+    while(bYOffset<bImgH){
+      pdf.addPage();
+      lastSliceH=Math.min(pageSliceH, bImgH-bYOffset);
+      const bSlice=document.createElement('canvas');
+      bSlice.width=bImgW; bSlice.height=lastSliceH;
+      bSlice.getContext('2d').drawImage(bodyRendered,0,bYOffset,bImgW,lastSliceH,0,0,bImgW,lastSliceH);
+      pdf.addImage(bSlice.toDataURL('image/jpeg',0.92),'JPEG',0,0,pageW,lastSliceH*bRatio);
+      bYOffset+=lastSliceH;
+    }
+
+    // Smart-place signature: check if it fits in remaining space on last page
+    const lastPageUsedPts=lastSliceH*bRatio;
+    const remainingPts=pageH-lastPageUsedPts;
+    const sImgW=sigRendered.width, sImgH=sigRendered.height;
+    const sRatio=pageW/sImgW;
+    const sigHeightPts=sImgH*sRatio;
+
+    if(sigHeightPts>remainingPts-10){ // doesn't fit → new page
+      pdf.addPage();
+      pdf.addImage(sigRendered.toDataURL('image/jpeg',0.92),'JPEG',0,0,pageW,sigHeightPts);
+    } else { // fits → place right after body content
+      pdf.addImage(sigRendered.toDataURL('image/jpeg',0.92),'JPEG',0,lastPageUsedPts,pageW,sigHeightPts);
     }
     // ===== SAVE =====
     const pdfFilename=`team-asulin-${firstName}-${lastName}.pdf`;
