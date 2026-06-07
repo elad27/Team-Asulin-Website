@@ -81,8 +81,8 @@ section{padding:clamp(72px,10vw,140px) 0;position:relative}
 .btn-ghost:hover{background:#0f172a;color:#fff}
 .btn .arrow{width:18px;height:18px;transition:transform .25s}
 .btn:hover .arrow{transform:translateX(-4px)}
-.dark-sec .btn-ghost{color:#fff;border-color:rgba(255,255,255,.25)}
-.dark-sec .btn-ghost:hover{background:#fff;color:#0f172a}
+.dark-sec .btn-ghost,.hero .btn-ghost{color:rgba(255,255,255,.85);border-color:rgba(255,255,255,.45)}
+.dark-sec .btn-ghost:hover,.hero .btn-ghost:hover{background:#fff;color:#0f172a;border-color:#fff}
 
 /* ========= SECTION HEAD ========= */
 .sec-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.3em;color:var(--red);margin-bottom:18px;text-transform:uppercase}
@@ -1995,7 +1995,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
         <div class="sec-eyebrow" data-en="MY WHY">MY WHY · למה אני עושה את זה</div>
         <h2 data-en="Not Magic.<br><em>A Method.</em>">לא קסם.<br><em>שיטת עבודה.</em></h2>
         <blockquote class="journey-quote">
-          <span data-en='"Everything that stood between me and success in this field is what I'm going to teach you. <strong>I can give you that method.</strong>"'>"כל מה שהיה ביני להצלחה בתחום זה מה שאני הולך ללמד אותך. <strong>אני יכול לתת לך את השיטה הזו.</strong>"</span>
+          <span data-en='"Everything that stood between me and success in this field is what I&#39;m going to teach you. <strong>I can give you that method.</strong>"'>"כל מה שהיה ביני להצלחה בתחום זה מה שאני הולך ללמד אותך. <strong>אני יכול לתת לך את השיטה הזו.</strong>"</span>
         </blockquote>
         <div class="journey-milestones">
           <div class="ms"><div class="ms-num">100+</div><div class="ms-lab" data-en="Trainees coached<br>to date">צעירים אומנו<br>עד היום</div></div>
@@ -2104,7 +2104,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
         </a>
         <a href="#" onclick="(function(){var p=document.getElementById('about-modal').querySelector('.certs');if(p)p.scrollIntoView({behavior:'smooth'});return false;})()" class="btn btn-dark" data-en="See full certifications<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
       </div>
-      <p style="font-size:14px;color:#64748b;font-style:italic;margin-top:14px"><span data-en='"I'll listen to you, I'll be honest — <strong style='color:#0f172a;font-style:normal'>and I won't sell you dreams.</strong>"'>"אני אקשיב לך, אהיה כנה - <strong style="color:#0f172a;font-style:normal">ולא אמכור לך חלומות.</strong>"</span></p>
+      <p style="font-size:14px;color:#64748b;font-style:italic;margin-top:14px"><span data-en='"I&#39;ll listen to you, I&#39;ll be honest — <strong style=&#39;color:#0f172a;font-style:normal&#39;>and I won&#39;t sell you dreams.</strong>"'>"אני אקשיב לך, אהיה כנה - <strong style="color:#0f172a;font-style:normal">ולא אמכור לך חלומות.</strong>"</span></p>
     </div>
   </div>
 </section>
@@ -2175,7 +2175,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
     </div>
 
     <div class="kiski-quote-block">
-      <p><span data-en='"Two years that taught me <strong>what real discipline is.</strong> What it's like to be under the pressure of 50,000 fans. What it's like to work on a team where everyone depends on everyone. <strong>What I learned there is what I bring to every client</strong> — even if they don't play football, the training, the discipline, the habits — those are the things that make the difference."'>"שנתיים שלמדו אותי <strong>מה זה משמעת אמיתית.</strong> מה זה להיות בלחץ של 50,000 איש בקהל. מה זה לעבוד בצוות שבו כל אחד תלוי בכל אחד. <strong>מה שלמדתי שם זה מה שאני מביא לכל לקוח</strong> - גם אם הוא לא משחק פוטבול, האימון, המשמעת, וההרגלים - אלה הדברים שעושים את ההבדל."</p>
+      <p><span data-en='"Two years that taught me <strong>what real discipline is.</strong> What it&#39;s like to be under the pressure of 50,000 fans. What it&#39;s like to work on a team where everyone depends on everyone. <strong>What I learned there is what I bring to every client</strong> — even if they don&#39;t play football, the training, the discipline, the habits — those are the things that make the difference."'>"שנתיים שלמדו אותי <strong>מה זה משמעת אמיתית.</strong> מה זה להיות בלחץ של 50,000 איש בקהל. מה זה לעבוד בצוות שבו כל אחד תלוי בכל אחד. <strong>מה שלמדתי שם זה מה שאני מביא לכל לקוח</strong> - גם אם הוא לא משחק פוטבול, האימון, המשמעת, וההרגלים - אלה הדברים שעושים את ההבדל."</p>
       <span class="qa">— ELAD ASULIN · #27</span>
     </div>
   </div>
@@ -2184,7 +2184,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
   <div class="container">
     <div class="sec-head">
       <div class="sec-eyebrow" style="color:#F97316">WHY TEAM ASULIN</div>
-      <h2 class="sec-title" data-en="3 Reasons.<br><em>Why with me.</em>">3 סיבות.<br><em>למה אצלי.</em></h2>
+      <h2 class="sec-title" data-en="3 Reasons.<br><em>Why Me.</em>">3 סיבות.<br><em>למה אצלי.</em></h2>
     </div>
     <div class="why-grid">
       <div class="why-card" data-reveal>
