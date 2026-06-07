@@ -1957,6 +1957,42 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
   </a>
 </div>
 
+<!-- GUARDIAN MODAL (under 18) -->
+<div class="guardian-overlay" id="guardian-overlay">
+  <div class="guardian-modal" id="guardian-modal">
+    <h3 id="gm-title">אישור הורה / אפוטרופוס</h3>
+    <p class="gm-sub" id="gm-sub">המתאמן מתחת לגיל 18. נדרשת חתימת הורה או אפוטרופוס חוקי לצורך ביצוע הפעילות הגופנית.</p>
+    <div class="field">
+      <label id="gm-label-name">שם הורה / אפוטרופוס</label>
+      <input type="text" id="guardian-name" placeholder="שם מלא" />
+    </div>
+    <div class="field">
+      <label id="gm-label-phone">טלפון הורה / אפוטרופוס</label>
+      <input type="tel" id="guardian-phone" placeholder="מספר טלפון" />
+    </div>
+    <div class="field">
+      <label id="gm-label-relation">קשר למתאמן</label>
+      <input type="text" id="guardian-relation" placeholder="אמא / אבא / אפוטרופוס" />
+    </div>
+    <div class="field">
+      <label id="gm-label-sig">חתימת הורה / אפוטרופוס</label>
+      <div class="guardian-sig-wrap" id="guardian-sig-wrap">
+        <canvas id="guardian-canvas"></canvas>
+        <div class="sig-overlay" id="guardian-sig-overlay">חתום/י כאן</div>
+      </div>
+      <button type="button" class="sig-clear" id="guardian-sig-clear">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+        נקה
+      </button>
+    </div>
+    <p class="gm-note" id="gm-note">אני, ההורה/אפוטרופוס החתום, מאשר/ת בזאת כי קראתי את הצהרת הבריאות, מאשר/ת את תחילת הפעילות הגופנית, ומקבל/ת עליי את האחריות עבור הקטין/ה.</p>
+    <div class="gm-btns">
+      <button type="button" class="btn-gm-cancel" id="gm-cancel">ביטול</button>
+      <button type="button" class="btn-gm-confirm" id="gm-confirm">אישור וחתימה ✓</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ============== NAV SCROLL ============== */
 const nav=document.getElementById('nav');
@@ -2506,42 +2542,6 @@ document.addEventListener('DOMContentLoaded',function(){
 })();
 
 </script>
-
-<!-- GUARDIAN MODAL (under 18) -->
-<div class="guardian-overlay" id="guardian-overlay">
-  <div class="guardian-modal" id="guardian-modal">
-    <h3 id="gm-title">אישור הורה / אפוטרופוס</h3>
-    <p class="gm-sub" id="gm-sub">המתאמן מתחת לגיל 18. נדרשת חתימת הורה או אפוטרופוס חוקי לצורך ביצוע הפעילות הגופנית.</p>
-    <div class="field">
-      <label id="gm-label-name">שם הורה / אפוטרופוס</label>
-      <input type="text" id="guardian-name" placeholder="שם מלא" />
-    </div>
-    <div class="field">
-      <label id="gm-label-phone">טלפון הורה / אפוטרופוס</label>
-      <input type="tel" id="guardian-phone" placeholder="מספר טלפון" />
-    </div>
-    <div class="field">
-      <label id="gm-label-relation">קשר למתאמן</label>
-      <input type="text" id="guardian-relation" placeholder="אמא / אבא / אפוטרופוס" />
-    </div>
-    <div class="field">
-      <label id="gm-label-sig">חתימת הורה / אפוטרופוס</label>
-      <div class="guardian-sig-wrap" id="guardian-sig-wrap">
-        <canvas id="guardian-canvas"></canvas>
-        <div class="sig-overlay" id="guardian-sig-overlay">חתום/י כאן</div>
-      </div>
-      <button type="button" class="sig-clear" id="guardian-sig-clear">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
-        נקה
-      </button>
-    </div>
-    <p class="gm-note" id="gm-note">אני, ההורה/אפוטרופוס החתום, מאשר/ת בזאת כי קראתי את הצהרת הבריאות, מאשר/ת את תחילת הפעילות הגופנית, ומקבל/ת עליי את האחריות עבור הקטין/ה.</p>
-    <div class="gm-btns">
-      <button type="button" class="btn-gm-cancel" id="gm-cancel">ביטול</button>
-      <button type="button" class="btn-gm-confirm" id="gm-confirm">אישור וחתימה ✓</button>
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
