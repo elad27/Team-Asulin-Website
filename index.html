@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Heebo:wght@300;400;500;700;900&family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
 /* ========= RESET ========= */
@@ -1405,11 +1407,11 @@ TESTIMONIALS_PLACEHOLDER_TO_REMOVE_START
           <!-- Success -->
           <div class="health-success" id="success-screen">
             <div class="health-success-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <h3 data-he="הטופס נשלח!" data-en="Form Sent!">הטופס נשלח!</h3>
-            <p data-he="הטופס נשלח לאלעד בוואטסאפ. אחזור אליך אישית לתאם את שיחת ההיכרות." data-en="The form was sent to Coach Elad via WhatsApp. He'll personally get back to you to schedule your discovery call.">הטופס נשלח לאלעד בוואטסאפ. אחזור אליך אישית לתאם את שיחת ההיכרות.</p>
+            <h3 data-he="הקובץ הורד בהצלחה!" data-en="File Downloaded!">הקובץ הורד בהצלחה!</h3>
+            <p data-he="כדי להשלים את הרישום — שלח את קובץ ה-PDF שהורד לאלעד בוואטסאפ." data-en="To complete your registration — send the downloaded PDF file to Coach Elad on WhatsApp.">כדי להשלים את הרישום — שלח את קובץ ה-PDF שהורד לאלעד בוואטסאפ.</p>
             <a href="https://wa.me/972549211169" target="_blank" rel="noopener" class="btn btn-primary">
               <svg style="width:18px;height:18px" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
-              <span data-he="פתח שיחה עם אלעד" data-en="Open chat with Coach Elad">פתח שיחה עם אלעד</span>
+              <span data-he="פתח וואטסאפ עם אלעד" data-en="Open WhatsApp with Coach Elad">פתח וואטסאפ עם אלעד</span>
             </a>
           </div>
         </form>
@@ -2306,60 +2308,133 @@ document.getElementById('sig-clear').addEventListener('click',()=>{
 
 } // end canvas guard
 
-/* ============== FORM SUBMIT ============== */
-document.getElementById('health-form').addEventListener('submit',e=>{
+/* ============== FORM SUBMIT — PDF GENERATION ============== */
+document.getElementById('health-form').addEventListener('submit',async function(e){
   e.preventDefault();
   if(!hasSig){alert(currentLang==='he'?'נא לחתום לפני שליחת הטופס':'Please sign before submitting');return}
 
+  const submitBtn=document.getElementById('submit-form');
+  const origText=submitBtn.innerHTML;
+  submitBtn.disabled=true;
+  submitBtn.innerHTML='<span>'+(currentLang==='he'?'מייצר PDF...':'Generating PDF...')+'</span>';
+
   const data=new FormData(e.target);
-  const list=currentLang==='he'?QUESTIONS_HE:QUESTIONS_EN;
-  let answers=[];let hasYes=false;
-  for(let i=1;i<=list.length;i++){
-    const v=document.querySelector(`input[name="q${i}"]:checked`)?.value||'';
+  const isHe=currentLang==='he';
+  const list=isHe?QUESTIONS_HE:QUESTIONS_EN;
+  const firstName=data.get('firstName')||'';
+  const lastName=data.get('lastName')||'';
+  const dateStr=new Date().toLocaleDateString(isHe?'he-IL':'en-US');
+  let hasYes=false;
+
+  // Build questions HTML
+  const qRows=list.map((item,idx)=>{
+    const v=document.querySelector(`input[name="q${idx+1}"]:checked`)?.value||'';
+    const explanation=v==='yes'?(document.querySelector(`textarea[name="explain_q${idx+1}"]`)?.value?.trim()||''):'';
     if(v==='yes')hasYes=true;
-    const explanation = v==='yes' ? (document.querySelector(`textarea[name="explain_q${i}"]`)?.value?.trim() || '') : '';
-    answers.push(`${i}. ${list[i-1].q}: ${v==='yes'?(currentLang==='he'?'כן ⚠️':'YES ⚠️'):(currentLang==='he'?'לא':'No')}${explanation?`\n   📝 ${explanation}`:''}`);
-  }
+    const yes=v==='yes';
+    return `<div style="margin-bottom:8px;padding:9px 13px;background:${yes?'#fef2f2':'#f8fafc'};border-radius:7px;border-right:3px solid ${yes?'#DC2626':'#cbd5e1'};">
+      <div style="display:flex;justify-content:space-between;gap:12px;">
+        <span style="font-size:12.5px;color:#374151;flex:1;">${idx+1}. ${item.q}</span>
+        <span style="font-size:12.5px;font-weight:700;white-space:nowrap;color:${yes?'#DC2626':'#10B981'}">${yes?(isHe?'כן ⚠️':'YES ⚠️'):(isHe?'לא':'No')}</span>
+      </div>
+      ${explanation?`<div style="margin-top:5px;padding:6px 8px;background:#fff;border-radius:5px;font-size:11.5px;color:#64748b;">📝 ${explanation}</div>`:''}
+    </div>`;
+  }).join('');
 
-  let msg;
-  if(currentLang==='he'){
-    const guardianLine=guardianData?`\n*👨‍👦 הורה/אפוטרופוס:* ${guardianData.name} | ${guardianData.phone} | ${guardianData.relation}`:''; msg=`*🏋️‍♂️ הצהרת בריאות חדשה - TEAM ASULIN*\n\n` +
-    `*👤 פרטים אישיים:*\n` +
-    `שם: ${data.get('firstName')} ${data.get('lastName')}\n` +
-    `ת.ז.: ${data.get('idNumber')}\n` +
-    `גיל: ${data.get('age')}\n` +
-    `טלפון: ${data.get('phone')}\n` +
-    (data.get('email')?`אימייל: ${data.get('email')}\n`:'')+guardianLine +
-    `\n*📋 שאלון רפואי:*\n${answers.join('\n')}\n\n` +
-    (hasYes?`*⚠️ חשוב:* ענה "כן" על שאלה אחת או יותר - דורש אישור רפואי מרופא לפני תחילת אימונים.\n\n`:'') +
-    `*✍️ חתום דיגיטלית* ${new Date().toLocaleDateString('he-IL')}\n` +
-    `\nאני מוכן לשיחת היכרות! 💪`;
-  } else {
-    msg=`*🏋️‍♂️ NEW HEALTH DECLARATION - TEAM ASULIN*\n\n` +
-    `*👤 Personal Info:*\n` +
-    `Name: ${data.get('firstName')} ${data.get('lastName')}\n` +
-    `ID/DOB: ${data.get('idNumber')}\n` +
-    `Age: ${data.get('age')}\n` +
-    `Phone: ${data.get('phone')}\n` +
-    (data.get('email')?`Email: ${data.get('email')}\n`:'') +
-    `\n*📋 Medical Questionnaire:*\n${answers.join('\n')}\n\n` +
-    (hasYes?`*⚠️ Important:* Answered "Yes" to one or more questions - medical clearance required before training.\n\n`:'') +
-    `*✍️ Digitally signed* on ${new Date().toLocaleDateString('en-US')}\n` +
-    `\nReady for my discovery call! 💪`;
-  }
+  // Guardian section
+  const gCanvas=document.getElementById('guardian-canvas');
+  const guardianSigUrl=guardianData&&gCanvas?gCanvas.toDataURL('image/png'):null;
+  const guardianSection=guardianData?`
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;padding-bottom:5px;border-bottom:1.5px solid #e2e8f0;">
+        ${isHe?'👨‍👧 פרטי הורה / אפוטרופוס':'👨‍👧 Parent / Guardian'}
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+        <tr style="background:#f8fafc;"><td style="padding:7px 10px;color:#64748b;width:35%;">${isHe?'שם':'Name'}</td><td style="padding:7px 10px;font-weight:600;">${guardianData.name}</td></tr>
+        <tr><td style="padding:7px 10px;color:#64748b;">${isHe?'טלפון':'Phone'}</td><td style="padding:7px 10px;font-weight:600;">${guardianData.phone}</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:7px 10px;color:#64748b;">${isHe?'קשר':'Relation'}</td><td style="padding:7px 10px;font-weight:600;">${guardianData.relation}</td></tr>
+      </table>
+      ${guardianSigUrl?`<div style="margin-top:10px;"><div style="font-size:11.5px;color:#64748b;margin-bottom:5px;">${isHe?'חתימת הורה:':'Guardian signature:'}</div><img src="${guardianSigUrl}" style="height:55px;border:1px solid #e2e8f0;border-radius:6px;padding:4px;background:#fff;" /></div>`:''}
+    </div>`:'';
 
-  // Also offer signature download
+  // Signature
+  const sigDataUrl=canvas.toDataURL('image/png');
+
+  // Build full HTML template
+  const htmlContent=`<div style="font-family:'Heebo',Arial,sans-serif;direction:${isHe?'rtl':'ltr'};text-align:${isHe?'right':'left'};color:#0f172a;padding:36px 40px;width:794px;background:#fff;box-sizing:border-box;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:3px solid #0f172a;margin-bottom:22px;">
+      <div><div style="font-size:26px;font-weight:900;letter-spacing:2px;color:#0f172a;">TEAM ASULIN</div><div style="font-size:10.5px;color:#64748b;letter-spacing:1px;margin-top:2px;">${isHe?'הצהרת בריאות ותקנון':'HEALTH DECLARATION &amp; TERMS'}</div></div>
+      <div style="font-size:11.5px;color:#64748b;text-align:${isHe?'left':'right'};">${isHe?'תאריך:':'Date:'} ${dateStr}</div>
+    </div>
+
+    <div style="font-size:13px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;padding-bottom:5px;border-bottom:1.5px solid #e2e8f0;">${isHe?'👤 פרטים אישיים':'👤 Personal Information'}</div>
+    <table style="width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:20px;">
+      <tr style="background:#f8fafc;"><td style="padding:7px 10px;color:#64748b;width:35%;">${isHe?'שם מלא':'Full Name'}</td><td style="padding:7px 10px;font-weight:600;">${firstName} ${lastName}</td></tr>
+      <tr><td style="padding:7px 10px;color:#64748b;">${isHe?'ת.ז.':'ID Number'}</td><td style="padding:7px 10px;font-weight:600;">${data.get('idNumber')||''}</td></tr>
+      <tr style="background:#f8fafc;"><td style="padding:7px 10px;color:#64748b;">${isHe?'גיל':'Age'}</td><td style="padding:7px 10px;font-weight:600;">${data.get('age')||''}</td></tr>
+      <tr><td style="padding:7px 10px;color:#64748b;">${isHe?'טלפון':'Phone'}</td><td style="padding:7px 10px;font-weight:600;">${data.get('phone')||''}</td></tr>
+      ${data.get('email')?`<tr style="background:#f8fafc;"><td style="padding:7px 10px;color:#64748b;">${isHe?'אימייל':'Email'}</td><td style="padding:7px 10px;font-weight:600;">${data.get('email')}</td></tr>`:''}
+    </table>
+
+    ${guardianSection}
+
+    <div style="font-size:13px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;padding-bottom:5px;border-bottom:1.5px solid #e2e8f0;">${isHe?'📋 שאלון רפואי':'📋 Medical Questionnaire'}</div>
+    <div style="margin-bottom:${hasYes?'10px':'20px'};">${qRows}</div>
+    ${hasYes?`<div style="margin-bottom:20px;padding:10px 14px;background:#fef2f2;border-radius:7px;border:1px solid #fca5a5;font-size:12px;color:#991b1b;">⚠️ ${isHe?'ענית "כן" על שאלה אחת או יותר — נדרש אישור רפואי מרופא לפני תחילת אימונים.':'Answered "Yes" to one or more questions — medical clearance required before training.'}</div>`:''}
+
+    <div style="font-size:13px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;padding-bottom:5px;border-bottom:1.5px solid #e2e8f0;">${isHe?'📄 הצהרה ותקנון':'📄 Declaration &amp; Terms'}</div>
+    <div style="font-size:11.5px;line-height:1.75;color:#374151;padding:14px 16px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;margin-bottom:22px;">${DECLARATIONS[currentLang]}</div>
+
+    <div style="font-size:13px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;padding-bottom:5px;border-bottom:1.5px solid #e2e8f0;">${isHe?'✍️ חתימה דיגיטלית':'✍️ Digital Signature'}</div>
+    <div style="display:flex;gap:40px;flex-wrap:wrap;margin-bottom:24px;">
+      <div>
+        <div style="font-size:11.5px;color:#64748b;margin-bottom:6px;">${firstName} ${lastName}</div>
+        <img src="${sigDataUrl}" style="height:75px;border:2px solid #10B981;border-radius:8px;padding:5px;background:#fff;" />
+        <div style="font-size:11px;color:#64748b;margin-top:5px;">${isHe?'תאריך:':'Date:'} ${dateStr}</div>
+      </div>
+    </div>
+
+    <div style="padding-top:14px;border-top:1px solid #e2e8f0;font-size:10.5px;color:#94a3b8;display:flex;justify-content:space-between;">
+      <span>TEAM ASULIN | אלעד אסולין</span><span>054-921-1169 | asulinelad27@gmail.com</span>
+    </div>
+  </div>`;
+
+  // Render off-screen
+  const tempDiv=document.createElement('div');
+  tempDiv.style.cssText='position:absolute;top:-9999px;left:-9999px;';
+  tempDiv.innerHTML=htmlContent;
+  document.body.appendChild(tempDiv);
+
   try{
-    const sigData=canvas.toDataURL('image/png');
-    const link=document.createElement('a');
-    link.download=`signature-${data.get('firstName')||'client'}-${Date.now()}.png`;
-    link.href=sigData;
-    setTimeout(()=>{link.click()},200);
-  }catch(err){console.log('Could not save signature image:',err)}
-
-  // Open WhatsApp
-  const waUrl=`https://wa.me/972549211169?text=${encodeURIComponent(msg)}`;
-  window.open(waUrl,'_blank');
+    const {jsPDF}=window.jspdf;
+    const contentEl=tempDiv.firstElementChild;
+    const rendered=await html2canvas(contentEl,{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',width:794,logging:false});
+    const imgW=rendered.width, imgH=rendered.height;
+    const pdf=new jsPDF({orientation:'portrait',unit:'pt',format:'a4'});
+    const pageW=pdf.internal.pageSize.getWidth();
+    const pageH=pdf.internal.pageSize.getHeight();
+    const ratio=pageW/imgW;
+    const scaledH=imgH*ratio;
+    let yOffset=0;
+    let page=0;
+    while(yOffset<imgH){
+      if(page>0)pdf.addPage();
+      const sliceH=Math.min(pageH/ratio, imgH-yOffset);
+      const sliceCanvas=document.createElement('canvas');
+      sliceCanvas.width=imgW; sliceCanvas.height=sliceH;
+      sliceCanvas.getContext('2d').drawImage(rendered,0,yOffset,imgW,sliceH,0,0,imgW,sliceH);
+      pdf.addImage(sliceCanvas.toDataURL('image/jpeg',0.93),'JPEG',0,0,pageW,sliceH*ratio);
+      yOffset+=sliceH; page++;
+    }
+    pdf.save(`health-declaration-${firstName}-${lastName}.pdf`);
+  }catch(err){
+    console.error('PDF error:',err);
+    alert(isHe?'שגיאה ביצירת ה-PDF. נסה שוב.':'Error generating PDF. Please try again.');
+    submitBtn.disabled=false; submitBtn.innerHTML=origText;
+    document.body.removeChild(tempDiv);
+    return;
+  }
+  document.body.removeChild(tempDiv);
 
   // Show success screen
   document.querySelectorAll('.health-step').forEach(s=>s.classList.remove('active'));
