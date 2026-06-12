@@ -2750,18 +2750,15 @@ function applyCoupon(ctx){
       const banner=document.getElementById('founders-banner-pricing');
       banner.style.display='block';
       banner.scrollIntoView({behavior:'smooth',block:'nearest'});
-    } else {
-      // Reveal founders card in form and auto-select
-      const foundersCard=document.getElementById('founders-plan-card');
-      foundersCard.style.display='block';
-      // Deselect all, select founders
-      document.querySelectorAll('.plan-pick-card').forEach(c=>c.classList.remove('selected'));
-      foundersCard.classList.add('selected');
-      // Update plan data
-      const btn=foundersCard.querySelector('.plan-commit-btn.active');
-      if(btn) updatePlanData(btn);
-      foundersCard.scrollIntoView({behavior:'smooth',block:'nearest'});
     }
+    // Always reveal founders card in form and update plan data (whether coupon entered from pricing or form)
+    const foundersCard=document.getElementById('founders-plan-card');
+    foundersCard.style.display='block';
+    document.querySelectorAll('.plan-pick-card').forEach(c=>c.classList.remove('selected'));
+    foundersCard.classList.add('selected');
+    const btn=foundersCard.querySelector('.plan-commit-btn.active');
+    if(btn) updatePlanData(btn);
+    if(ctx==='form') foundersCard.scrollIntoView({behavior:'smooth',block:'nearest'});
   } else {
     msg.className='coupon-msg err';
     msg.textContent=currentLang==='he'?'❌ קוד לא תקין':'❌ Invalid code';
