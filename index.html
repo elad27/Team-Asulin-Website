@@ -2618,6 +2618,7 @@ const progLines=document.querySelectorAll('.prog-line');
 function showStep(n){
   steps.forEach(s=>s.classList.remove('active'));
   document.querySelector(`.health-step[data-step="${n}"]`).classList.add('active');
+  if(n===3) setTimeout(()=>window.resizeSigCanvas&&window.resizeSigCanvas(),50);
   progSteps.forEach((ps,i)=>{
     const sn=parseInt(ps.dataset.step);
     ps.classList.remove('active','done');
@@ -2950,6 +2951,7 @@ function resizeCanvas(){
 }
 window.addEventListener('resize',resizeCanvas);
 setTimeout(resizeCanvas,100);
+window.resizeSigCanvas=resizeCanvas;
 
 function getPos(e){
   const rect=canvas.getBoundingClientRect();
