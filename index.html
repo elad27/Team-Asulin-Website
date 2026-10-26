@@ -1763,6 +1763,19 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
               <div><div class="cpb-name" id="cpb-name">COACH</div><div class="cpb-detail" id="cpb-detail">חודשי</div></div>
               <div class="cpb-price"><div class="cpb-amount" id="cpb-amount">270₪</div><div style="font-size:11px;color:#64748b">/חודש</div></div>
             </div>
+            <!-- Per-signer contract adjustments (optional) — re-render contract on change -->
+            <div id="contract-adjustments" style="margin-bottom:16px;padding:14px 16px;border:1.5px solid #e2e8f0;border-radius:12px;background:#f8fafc">
+              <div style="font-size:14px;font-weight:700;color:#0f172a;margin-bottom:4px" data-he="התאמות אישיות לחוזה (אופציונלי)" data-en="Personal Contract Adjustments (optional)">התאמות אישיות לחוזה (אופציונלי)</div>
+              <div style="font-size:12px;color:#64748b;margin-bottom:10px" data-he="במתאמן קטין — הסימון נעשה על ידי ההורה/אפוטרופוס." data-en="For a minor — to be marked by the parent/guardian.">במתאמן קטין — הסימון נעשה על ידי ההורה/אפוטרופוס.</div>
+              <div class="contract-confirm-wrap" style="margin-bottom:8px;padding:10px 12px;background:#fff;border-color:#e2e8f0">
+                <input type="checkbox" id="adj-private-media" class="contract-adj" />
+                <label for="adj-private-media" style="color:#0f172a;font-weight:500" data-he="מדיה פרטית — תמונות וסרטונים ישמשו לצורכי האימון בלבד, לא יפורסמו ולא יועברו." data-en="Private media — photos/videos used for training feedback only; not published or transferred.">מדיה פרטית — תמונות וסרטונים ישמשו לצורכי האימון בלבד, לא יפורסמו ולא יועברו.</label>
+              </div>
+              <div class="contract-confirm-wrap" style="margin-bottom:0;padding:10px 12px;background:#fff;border-color:#e2e8f0">
+                <input type="checkbox" id="adj-no-nutrition" class="contract-adj" />
+                <label for="adj-no-nutrition" style="color:#0f172a;font-weight:500" data-he="אימוני כושר בלבד — ללא תפריט או תוכנית תזונה." data-en="Fitness training only — no meal plan or nutrition program.">אימוני כושר בלבד — ללא תפריט או תוכנית תזונה.</label>
+              </div>
+            </div>
             <!-- Scrollable contract -->
             <div class="contract-scroll-box" id="contract-text-box">
               <!-- filled by renderContract() -->
@@ -2665,6 +2678,13 @@ function validateStep3(){
 }
 document.getElementById('to-step-4').addEventListener('click',()=>{if(validateStep3()){renderContract();showStep(4);}});
 document.getElementById('back-to-3').addEventListener('click',()=>showStep(3));
+// Contract adjustments: re-render contract text and require re-confirmation
+document.querySelectorAll('.contract-adj').forEach(function(cb){
+  cb.addEventListener('change',function(){
+    renderContract();
+    var agree=document.getElementById('contract-agree');if(agree)agree.checked=false;
+  });
+});
 
 /* ============== PLAN PICKER LOGIC ============== */
 window.selectedPlanData={plan:'COACH',commitment:'monthly',monthlyPrice:270,commitMonths:1,totalPrice:270,commitLabel:'חודש לחודש'};
@@ -2805,6 +2825,10 @@ function renderContract(){
   var commitMonths=plan.commitMonths;
   var isFounders=plan.plan==='FOUNDERS';
   var commitDesc=isFounders?'6 חודשים (מסלול מייסדים)':(commitMonths===1?'חודש לחודש':(commitMonths===6?'6 חודשים (התחייבות)':'12 חודשים (התחייבות)'));
+  // Per-signer adjustments (default: unchecked → contract unchanged)
+  var adjMedia=!!(document.getElementById('adj-private-media')||{}).checked;
+  var adjNoNutrition=!!(document.getElementById('adj-no-nutrition')||{}).checked;
+  var adjRefs=[];if(adjNoNutrition)adjRefs.push('4.6');if(adjMedia)adjRefs.push('6.4');
 
   // Update banner
   document.getElementById('cpb-name').textContent=plan.plan;
@@ -2817,7 +2841,7 @@ function renderContract(){
 <p><strong>הלקוח:</strong> ${firstName} ${lastName} | ת.ז.: ${idNum} | טלפון: ${phone}${email?' | דוא"ל: '+email:''}</p>
 <p><strong>תאריך:</strong> ${dayStr} ב${monthStr} ${yearStr}</p>
 <p><strong>מסלול שנבחר:</strong> ${plan.plan} · ${commitDesc} · ${monthlyPrice}₪/חודש${commitMonths>1?' (סה"כ '+totalPrice+'₪)':''}</p>
-${isFounders?`<p style="background:#fefce8;border:1.5px solid #d4af37;border-radius:8px;padding:10px 14px;color:#92400e;"><strong>⭐ מסלול מייסדים:</strong> מחיר מיוחד של 150₪/חודש ניתן באמצעות קוד קופון בלעדי למתאמנים ותיקים של טים אסולין. תוקף המסלול: 6 חודשים. לאחר תום התקופה, הלקוח יעבור לתוכנית לפי בחירתו (TRACK / COACH / ELITE) במחיר הרגיל.</p>`:''}
+${isFounders?`<p style="background:#fefce8;border:1.5px solid #d4af37;border-radius:8px;padding:10px 14px;color:#92400e;"><strong>⭐ מסלול מייסדים:</strong> מחיר מיוחד של 150₪/חודש ניתן באמצעות קוד קופון בלעדי למתאמנים ותיקים של טים אסולין. תוקף המסלול: 6 חודשים. לאחר תום התקופה, הלקוח יעבור לתוכנית לפי בחירתו (TRACK / COACH / ELITE) במחיר הרגיל.</p>`:''}${adjRefs.length?`<p style="background:#eff6ff;border:1.5px solid #3b82f6;border-radius:8px;padding:10px 14px;color:#1e3a8a;"><strong>התאמות אישיות לחוזה זה:</strong> חוזה זה כולל התאמות שנבחרו על ידי הלקוח (ובמתאמן קטין — על ידי ההורה/אפוטרופוס), המפורטות ${adjRefs.length>1?'בסעיפים':'בסעיף'} ${adjRefs.join(' ו-')}. ${adjRefs.length>1?'סעיפים אלה גוברים על כל הוראה אחרת בחוזה הסותרת אותם':'סעיף זה גובר על כל הוראה אחרת בחוזה הסותרת אותו'}.</p>`:''}
 
 <div class="section-title">1. הגדרות</div>
 <p><strong>1.1 "השירותים"</strong> — תוכניות אימון מותאמות אישית, סרטוני הדרכה, ייעוץ תזונתי, ליווי וקורסים דיגיטליים, על פי מסלול הליווי שנבחר.</p>
@@ -2845,7 +2869,7 @@ ${isFounders?`<p style="background:#fefce8;border:1.5px solid #d4af37;border-rad
 <p><strong>4.2 סרטוני הדרכה:</strong> תוך 14 ימים יישלחו קישורים לסרטוני הדרכה. הסרטונים הם קניין רוחני של המתאמן.</p>
 <p><strong>4.3 ייעוץ תזונתי:</strong> הייעוץ אינו מתבצע על ידי תזונאי/ת מוסמך/ת ברישום משרד הבריאות. הלקוח אחראי לתזונתו ולבריאותו.</p>
 <p><strong>4.4 ליווי:</strong> זמינות: ימים א'–ז' בין 10:00–22:00. ערוץ: WhatsApp / דוא"ל / טלפון. זמן תגובה סביר בהתאם לעומס.</p>
-<p><strong>4.5 ביטול שירותים:</strong> לאחר תום ההתחייבות רשאי המתאמן למחוק תוכניות אימון, תפריטי תזונה, וכל חומר הקשור ללקוח.</p>
+<p><strong>4.5 ביטול שירותים:</strong> לאחר תום ההתחייבות רשאי המתאמן למחוק תוכניות אימון, תפריטי תזונה, וכל חומר הקשור ללקוח.</p>${adjNoNutrition?`<p><strong>4.6 התאמה אישית — אימוני כושר בלבד:</strong> על אף האמור בסעיפים 1.1, 1.4, 4.3, 4.5 ו-8.3, הליווי לפי חוזה זה כולל אימוני כושר בלבד. המאמן לא יספק למתאמן/ת תפריט תזונה, תוכנית תזונה, כללי מותר/אסור באכילה או ייעוץ תזונתי אישי. המאמן רשאי לשתף טיפים כלליים בנושא אכילה בריאה, שאינם מותאמים אישית ואינם מהווים תוכנית או הנחיה תזונתית. אין בבחירה זו כדי לשנות את מחיר המסלול.</p>`:''}
 
 <div class="section-title">5. קניין רוחני</div>
 <p><strong>5.1</strong> כל החומרים (סרטונים, תוכניות, תפריטים, קורסים) הם קניינו הרוחני של המתאמן.</p>
@@ -2855,7 +2879,7 @@ ${isFounders?`<p style="background:#fefce8;border:1.5px solid #d4af37;border-rad
 <div class="section-title">6. שימוש בתמונות ווידאו</div>
 <p><strong>6.1</strong> כל תמונה/וידאו שהלקוח ישלח למתאמן יהיו בבעלות המתאמן לצורכי שיווק וקידום עסק.</p>
 <p><strong>6.2</strong> הלקוח מאשר שימוש בתמונותיו ברשתות חברתיות (פייסבוק, אינסטגרם, טיקטוק וכו').</p>
-<p><strong>6.3</strong> אם הלקוח אינו מסכים לפרסום פומבי, עליו להודיע בכתב תוך 24 שעות.</p>
+<p><strong>6.3</strong> אם הלקוח אינו מסכים לפרסום פומבי, עליו להודיע בכתב תוך 24 שעות.</p>${adjMedia?`<p><strong>6.4 התאמה אישית — מדיה פרטית:</strong> על אף האמור בסעיפים 6.1–6.3 ובסעיף 12.3, תמונות וסרטונים של המתאמן/ת שיישלחו למאמן או יצולמו במסגרת הליווי:<br>(א) ישמשו את המאמן אך ורק לצורכי הליווי והאימון — משוב, מעקב התקדמות ותיקון טכניקה;<br>(ב) לא יפורסמו בשום מדיה, לרבות רשתות חברתיות, אתר אינטרנט ופרסום שיווקי, גם לא בטשטוש פנים או בעילום שם;<br>(ג) לא יועברו לצד שלישי, ואין בחתימה על חוזה זה משום העברת בעלות או זכויות שימוש בהם למאמן לצורכי שיווק וקידום עסק.<br>שינוי סעיף זה ייעשה רק בהסכמה מפורשת בכתב של הלקוח, ובמתאמן קטין — של ההורה/אפוטרופוס.</p>`:''}
 
 <div class="section-title">7. ביטול, החזרים וסעיפים משפטיים</div>
 <p><strong>7.1 זכות ביטול:</strong> על פי חוק הגנת הצרכן תשמ"א–1981, הלקוח זכאי לבטל עסקה תוך 14 ימים, בתנאים המפורטים בסעיפים הבאים.</p>
